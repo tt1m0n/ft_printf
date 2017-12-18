@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_prnt_strstr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/12/18 22:07:45 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/12/18 22:07:46 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <stdio.h>
+#include "libft.h"
 
 int	ft_prnt_strstr(const char *haystack, const char *needle)
 {
@@ -25,11 +24,5 @@ int	ft_prnt_strstr(const char *haystack, const char *needle)
 				return (1);
 		haystack++;
 	}
-	return (0);
-}
-
-int main ()
-{
-	printf("%d\n", ft_prnt_strstr("-08-+.12zd", "zd"));
 	return (0);
 }

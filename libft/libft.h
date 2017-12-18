@@ -37,17 +37,17 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
 
 //my
-//int					ft_prnt_strstr(const char *haystack, const char *needle);
-//char				*ft_prnt_strjoin_prsn(unsigned int size, char const *s2);
+int					ft_prnt_strstr(const char *haystack, const char *needle);
+char				*ft_prnt_strjoin_prsn(unsigned int size, char const *s2);
 //char				*ft_prnt_strjoin_width(unsigned int size, char const *s2);
 //char				*ft_prnt_replace_spc(char const *str);
 //char				*ft_prnt_strjoin_plus(char const *s1, char const *s2);
 //char				*ft_prnt_add_zero(char const *str);
 //char				*ft_prnt_space_flag(char const *str);
-//char				*ft_prnt_itoall(long long n);
-//char				*ft_prnt_itoaull(unsigned long long n);
-//char				*ft_prnt_itoaus(unsigned short n);
-//char				*ft_prnt_itoas(short n);
+char				*ft_prnt_itoall(long long n);
+char				*ft_prnt_itoaull(unsigned long long n);
+char				*ft_prnt_itoaus(unsigned short n);
+char				*ft_prnt_itoas(short n);
 char				*ft_prnt_itoa_intmax(intmax_t n);
 char				*ft_prnt_itoa_uintmax(uintmax_t n);
 char				*ft_prnt_itoa_sizet(size_t n);
