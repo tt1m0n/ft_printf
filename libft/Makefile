@@ -6,11 +6,11 @@
 #    By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/26 18:09:32 by omakovsk          #+#    #+#              #
-#    Updated: 2017/12/18 16:21:53 by omakovsk         ###   ########.fr        #
+#    Updated: 2017/11/10 11:51:42 by omakovsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = libft.a
 FLAGS = -Wall -Werror -Wextra -c
 
 SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
@@ -25,11 +25,7 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 	  ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
 	  ft_putnbr_fd.c ft_lstadd.c ft_lstdelone.c ft_lstdel.c ft_lstiter.c\
 	  ft_lstnew.c ft_lstmap.c ft_mycount_words.c ft_myrev.c ft_myintiter.c\
-	  ft_myfactor.c ft_mypower.c ft_prnt_strstr.c ft_prnt_strjoin_prsn.c\
-	  ft_prnt_strjoin_width.c ft_prnt_replace_spc.c ft_prnt_strjoin_plus.c\
-	  ft_prnt_add_zero.c ft_prnt_space_flag.c ft_prnt_itoall.c\
-	  ft_prnt_itoaull.c ft_prnt_itoaus.c ft_prnt_itoas.c ft_prnt_itoa_intmax.c\
-	  ft_prnt_itoa_uintmax.c ft_prnt_itoa_sizet.c
+	  ft_myfactor.c ft_mypower.c
 
 OBJ	= $(SRC:.c=.o)
 
@@ -37,21 +33,20 @@ all: $(SRC) $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rcs $@ $^
-//	@echo compilation done =\)
+	@echo compilation done =\)
 
 %.o: %.c
 	@gcc $(FLAGS) $<
 
 clean:
 	@rm -f $(OBJ)
-//	@echo object files deleted -_-
+	@echo object files deleted -_-
 
 fclean: clean
 	@rm -f $(NAME)
-//	@echo libft.a deleted -_-
+	@echo libft.a deleted -_-
 
 re: fclean all
 
 
 .PHONY: clean fclean all re
-
