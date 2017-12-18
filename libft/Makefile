@@ -6,7 +6,7 @@
 #    By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/26 18:09:32 by omakovsk          #+#    #+#              #
-#    Updated: 2017/11/10 11:51:42 by omakovsk         ###   ########.fr        #
+#    Updated: 2017/12/18 21:19:20 by omakovsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 	  ft_putendl.c ft_putnbr.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
 	  ft_putnbr_fd.c ft_lstadd.c ft_lstdelone.c ft_lstdel.c ft_lstiter.c\
 	  ft_lstnew.c ft_lstmap.c ft_mycount_words.c ft_myrev.c ft_myintiter.c\
-	  ft_myfactor.c ft_mypower.c
+	  ft_myfactor.c ft_mypower.c ft_prnt_itoa_sizet.c ft_prnt_itoa_uintmax.c\
+	  ft_prnt_itoa_intmax.c
 
 OBJ	= $(SRC:.c=.o)
 
@@ -39,11 +40,11 @@ $(NAME): $(OBJ)
 	@gcc $(FLAGS) $<
 
 clean:
-	@rm -f $(OBJ)
+	@rm -rf $(OBJ)
 	@echo object files deleted -_-
 
 fclean: clean
-	@rm -f $(NAME)
+	@rm -rf $(NAME)
 	@echo libft.a deleted -_-
 
 re: fclean all

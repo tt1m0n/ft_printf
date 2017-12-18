@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_prnt_itoa_intmax.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/12/18 21:38:11 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/12/18 21:38:13 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <stdio.h>
+#include "libft.h"
 
 static	void	ft_rev(char *s)
 {
@@ -33,8 +32,8 @@ static	void	ft_rev(char *s)
 
 static	int		ft_intlen(intmax_t n)
 {
-	int i;
-	intmax_t sign;
+	int			i;
+	intmax_t	sign;
 
 	i = 0;
 	if (n == 0)
@@ -55,8 +54,8 @@ static	int		ft_intlen(intmax_t n)
 
 static	void	ft_if(char *p, intmax_t n)
 {
-	int i;
-	intmax_t sign;
+	int			i;
+	intmax_t	sign;
 
 	i = 0;
 	if ((sign = n) < 0)
@@ -88,10 +87,4 @@ char			*ft_prnt_itoa_intmax(intmax_t n)
 	ft_if(p, n);
 	ft_rev(p);
 	return (p);
-}
-
-int main ()
-{
-	printf("%s\n", ft_prnt_itoa_intmax(9223372036854775807));
-	return (0);
 }
