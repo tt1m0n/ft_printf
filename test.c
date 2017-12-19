@@ -13,61 +13,26 @@
 #include "libft/libft.h"
 #include <stdio.h>
 
-static char		*ft_prnt_add(char *p, char const *s)
-{
-	int i;
-
-	i = 0;
-	if (!(p = (char*)malloc(ft_strlen(s) + 1)))
-		return (NULL);
-	if (ft_isdigit(s[0]))
-	{
-		p[i++] = '+';
-		while (*(s + 1) != '\0')
-			p[i++] = *(s++);
-	}
-	else
-	{
-		while(!(ft_isdigit(*(s + 1))))
-			p[i++] = *(s++);
-		p[i++] = '+';
-		while (*s != '\0')
-		{	
-			if (ft_isdigit(*s))
-				p[i++] = *s;
-			s++;
-		}	
-	}
-	p[i] = '\0';	
-	return (p);
-}	
-
-char			*ft_prnt_strjoin_plus(char const *s)
+char				*ft_prnt_space_flag(char const *str)
 {
 	int		i;
-	int		count; 
 	char	*p;
 
 	i = 0;
-	count = 0;
-	p = NULL;
-	if (ft_isdigit(s[0]) && ft_isdigit(s[ft_strlen(s) - 1]))
+	p = (char*)malloc(ft_strlen(str) + 1);
+	if (p == NULL)
+		return (NULL);
+	p[0] = ' ';
+	while (str[i + 1] != '\0')
 	{	
-		p = (char*)malloc(ft_strlen(s) + 2);
-		if (p == NULL)
-			return (NULL);
-		p[i++] = '+';
-		while (*s != '\0')
-			p[i++] = *(s++);
-		p[i] = '\0';
+		p[i + 1] = str[i];
+		i++;
 	}
-	else 
-		p = ft_prnt_add(p, s);
-	return (p);	
+	p[i + 1] = '\0';
+	return (p);		
 }
-
 int main ()
 {
-	printf("%s\n", ft_prnt_strjoin_plus("  123"));
+	printf("%s\n", ft_prnt_space_flag("123   "));
 	return (0);
 }

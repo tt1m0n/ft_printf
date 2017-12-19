@@ -204,7 +204,7 @@ void	make_plus_flag(char **rez)
 		free(tmp);
 	}
 }
-/*
+
 void	make_zero_flag(char *str, char **rez)
 {
 	int i;
@@ -227,34 +227,29 @@ void	make_zero_flag(char *str, char **rez)
 
 void	make_space_flag(char *str, char **rez)
 {
-	int i;
-	char *tmp;
-	int prsn;
+	int		i;
+	char	*tmp;
 
 	i = 0;
-	prsn = 0;
 	tmp = *rez;
-	while(str[i] != '\0')
-	{
-		if(str[i] == '+')
+	while (str[i] != '\0')
+		if ((str[i++] == '+') || (*rez)[0] == ' ') 
 			return ;
-		if(str[i] == '.')
-			prsn = 1;
-		i++;
-	}
-	if ((prsn) && (*rez)[0] != '-') 
+	i = 0;
+	while (*(rez)[i] != '\0')
+		if (*(rez)[i] == '-')
+			return ;
+	if (ft_isdigit((*rez)[0]) && (*rez)[ft_strlen(*rez) - 1] != ' ')
 	{
 		*rez = ft_strjoin(" ", *rez);
 		free(tmp);
 	}	
-	if ((*rez)[0] == ' ')
-		return ;
-	if (((*rez)[0] == '0' || ft_isdigit((*rez)[0])))
+	if (ft_isdigit((*rez)[0]))
 	{ 
 		*rez = ft_prnt_space_flag(*rez);
 		free(tmp);
 	}	
-}*/
+}
 // [-] [+] [ ] [#] [0]
 void	check_flags(char *str, char **rez)
 {
@@ -270,17 +265,17 @@ void	check_flags(char *str, char **rez)
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 		if (str[i++] == '+')
 			make_plus_flag(rez);
-/*	i = 0;
+	i = 0;
 	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 		if (str[i++] == '0')
 			make_zero_flag(str, rez);
-	i = 0;
-	while (str[i] != '.' && !(ft_isalpha(str[i]))\
-		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
-		if (str[i++] == ' ')
-			make_space_flag(str, rez);
-*///	i = 0;
+//	i = 0;
+//	while (str[i] != '.' && !(ft_isalpha(str[i]))\
+//		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
+//		if (str[i++] == ' ')
+//			make_space_flag(str, rez);
+//	i = 0;
 //	while (str[i++] != '.' && !(ft_isalpha(str[i]))\
 //		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 //	{
@@ -429,8 +424,8 @@ int main ()
 {
 	intmax_t i = -3;
 	intmax_t j = -1421414;
-	int a =	ft_printf("(-23.13d)  - 123[%-23.13jd]    [%-23.13jd]\n", i, j);
-	int b = printf("(-23.13d)  - 123[%-23.13jd]    [%-23.13jd]\n", i, j);
+	int a =	ft_printf("(023.13d)  - 123[%023.13jd]    [%023.13jd]\n", i, j);
+	int b = printf("(023.13d)  - 123[%023.13jd]    [%023.13jd]\n", i, j);
 	printf("a == %d\nb == %d\n", a, b);
 //	system ("leaks printf");
 	return (0);
