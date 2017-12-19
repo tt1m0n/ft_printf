@@ -27,7 +27,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 	  ft_lstnew.c ft_lstmap.c ft_mycount_words.c ft_myrev.c ft_myintiter.c\
 	  ft_myfactor.c ft_mypower.c ft_prnt_itoa_sizet.c ft_prnt_itoa_uintmax.c\
 	  ft_prnt_itoa_intmax.c ft_prnt_itoall.c ft_prnt_itoaull.c ft_prnt_itoas.c\
-	  ft_prnt_itoaus.c ft_prnt_strstr.c
+	  ft_prnt_itoaus.c ft_prnt_strstr.c ft_prnt_strjoin_prsn.c ft_prnt_strjoin_width.c\
+	  ft_prnt_replace_spc.c ft_prnt_strjoin_plus.c
 
 OBJ	= $(SRC:.c=.o)
 

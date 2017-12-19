@@ -38,10 +38,10 @@ int					ft_atoi(const char *str);
 
 //my
 int					ft_prnt_strstr(const char *haystack, const char *needle);
-char				*ft_prnt_strjoin_prsn(unsigned int size, char const *s2);
-//char				*ft_prnt_strjoin_width(unsigned int size, char const *s2);
-//char				*ft_prnt_replace_spc(char const *str);
-//char				*ft_prnt_strjoin_plus(char const *s1, char const *s2);
+char				*ft_prnt_strjoin_prsn(int size, char const *s2);
+char				*ft_prnt_strjoin_width(int size, char const *s2);
+char				*ft_prnt_replace_spc(char const *str);
+char				*ft_prnt_strjoin_plus(char const *s);
 //char				*ft_prnt_add_zero(char const *str);
 //char				*ft_prnt_space_flag(char const *str);
 char				*ft_prnt_itoall(long long n);

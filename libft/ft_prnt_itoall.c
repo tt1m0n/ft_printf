@@ -72,7 +72,7 @@ static	void	ft_if(char *p, long long n)
 	p[i] = '\0';
 }
 
-char			*ft_prnt_itoa_itoall(long long n)
+char			*ft_prnt_itoall(long long n)
 {
 	char *p;
 

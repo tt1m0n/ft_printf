@@ -96,7 +96,6 @@ void	make_precision(char *str, char **rez, int lenprsn)
 	if (str[i] == 'd' || str[i] == 'i')	
 		*rez = ft_prnt_strjoin_prsn(lenprsn, *rez);
 	free (tmp);
-
 }
 
 int  	count_precision(char *str)
@@ -132,7 +131,7 @@ void	check_precision(char *str, char **rez)
 	if ((size_t)prsn > ft_strlen(*rez) && (*rez)[0] != '-')
 		make_precision(str, rez, prsn - ft_strlen(*rez));
 	if ((*rez)[0] == '-' && (size_t)prsn > ft_strlen(*rez) - 1)
-		make_precision(str, rez, prsn - ft_strlen(*rez));
+		make_precision(str, rez, prsn - ft_strlen(*rez) + 1);
 }
 
 void	make_width(char **rez, int lenwidth)
@@ -177,12 +176,12 @@ void	check_min_width(char *str, char **rez)
 		make_width(rez, wd - ft_strlen(*rez));
 }
 
-void	make_minus_flag(char *str, char **rez)
+void	make_minus_flag(char **rez)
 {
 	char *tmp;
 
-	if (str[ft_strlen(str) - 1] != 's' && str[ft_strlen(str) - 1] != 'S'\
-		&& (*rez)[0] == ' ')
+//	if (str[ft_strlen(str) - 1] != 's' && str[ft_strlen(str) - 1] != 'S')
+	if((*rez)[0] == ' ')
 	{
 		tmp = *rez;
 		*rez = ft_prnt_replace_spc(*rez);
@@ -201,11 +200,11 @@ void	make_plus_flag(char **rez)
 	if ((*rez)[i] != '-')
 	{
 		tmp = *rez;
-		*rez = ft_prnt_strjoin_plus("+", *rez);
+		*rez = ft_prnt_strjoin_plus(*rez);
 		free(tmp);
 	}
 }
-
+/*
 void	make_zero_flag(char *str, char **rez)
 {
 	int i;
@@ -255,7 +254,7 @@ void	make_space_flag(char *str, char **rez)
 		*rez = ft_prnt_space_flag(*rez);
 		free(tmp);
 	}	
-}
+}*/
 // [-] [+] [ ] [#] [0]
 void	check_flags(char *str, char **rez)
 {
@@ -265,13 +264,13 @@ void	check_flags(char *str, char **rez)
 	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 		if (str[i++] == '-')
-			make_minus_flag(str, rez);
+			make_minus_flag(rez);
 	i = 0;
 	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 		if (str[i++] == '+')
 			make_plus_flag(rez);
-	i = 0;
+/*	i = 0;
 	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 		if (str[i++] == '0')
@@ -281,7 +280,7 @@ void	check_flags(char *str, char **rez)
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 		if (str[i++] == ' ')
 			make_space_flag(str, rez);
-//	i = 0;
+*///	i = 0;
 //	while (str[i++] != '.' && !(ft_isalpha(str[i]))\
 //		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 //	{
@@ -319,6 +318,7 @@ int check_digit_conv(char *str, va_list ap)
 //		conv_u(str, ap);
 //	else (str[i] == 'U')
 //		conv_bu(str, ap);
+	free(rez);
 	return (ft_strlen(rez));
 }
 
@@ -427,10 +427,12 @@ void	check_char_conv(char *str, va_list ap)
 
 int main ()
 {
-	int a =	ft_printf("(12.13d)  - 123[% 012.13d]    [%+10.13d]\n", 213, 0);
-	int b = printf("(12.13d)  - 123[% 012.13d]    [%+10.13d]\n", 213, 0);
+	intmax_t i = -3;
+	intmax_t j = -1421414;
+	int a =	ft_printf("(-23.13d)  - 123[%-23.13jd]    [%-23.13jd]\n", i, j);
+	int b = printf("(-23.13d)  - 123[%-23.13jd]    [%-23.13jd]\n", i, j);
 	printf("a == %d\nb == %d\n", a, b);
-	system ("leaks, printf");
+//	system ("leaks printf");
 	return (0);
 
 }
