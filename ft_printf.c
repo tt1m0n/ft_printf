@@ -12,17 +12,18 @@
 
 #include <stdint.h> // for intmax_t, uintmax_t
 #include <stdarg.h>
-
 #include <stdio.h>
-#include "libft/libft.h"
+
+#include "libft.h"
 
 void	size_spec_hh(char *str, char **rez, va_list ap)
 {
 	int i;
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i') // D?
-		*rez = ft_itoa((int)va_arg(ap, void*));
-	//else if (str[i] == 'o')
+		*rez = ft_itoa((char)va_arg(ap, void*));
+	else if (str[i] == 'u')
+		*rez = ft_itoa((unsigned char)va_arg(ap, void*));
 }
 
 void	size_spec_ll(char *str, char **rez, va_list ap)
@@ -31,7 +32,8 @@ void	size_spec_ll(char *str, char **rez, va_list ap)
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i') // D?
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
-	//else if (str[i] == 'o')
+	else if (str[i] == 'u')
+		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
 }
 
 void	size_spec_h(char *str, char **rez, va_list ap)
@@ -40,16 +42,18 @@ void	size_spec_h(char *str, char **rez, va_list ap)
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i') // D?
 		*rez = ft_prnt_itoas((short)va_arg(ap, void*));
-	//else if (str[i] == 'o')
+	else if (str[i] == 'u')
+		*rez = ft_prnt_itoaus((unsigned short)va_arg(ap, void*));
 }
 
 void	size_spec_l(char *str, char **rez, va_list ap)
 {
 	int i;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i') // D?
-		*rez = ft_itoa((int)va_arg(ap, void*));
-	//else if (str[i] == 'o')
+	if (str[i] == 'd' || str[i] == 'i')// D?
+		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
+	else if (str[i] == 'u')
+		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
 }
 
 void	size_spec_j(char *str, char **rez, va_list ap)
@@ -58,7 +62,9 @@ void	size_spec_j(char *str, char **rez, va_list ap)
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i') // D?
 		*rez = ft_prnt_itoa_intmax((intmax_t)va_arg(ap, void*));
-	//else if (str[i] == 'o')
+	else if (str[i] == 'u')
+		*rez = ft_prnt_itoa_uintmax((uintmax_t)va_arg(ap, void*));
+
 }
 
 void	size_spec_z(char *str, char **rez, va_list ap)
@@ -67,7 +73,8 @@ void	size_spec_z(char *str, char **rez, va_list ap)
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i') // D?
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
-	//else if (str[i] == 'o')
+	else if (str[i] == 'u')
+		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
 }
 
 void	check_size_spec(char *str, char **rez, va_list ap)
@@ -93,7 +100,8 @@ void	make_precision(char *str, char **rez, int lenprsn)
 
 	tmp = *rez;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i')	
+	if (str[i] == 'd' || str[i] == 'i' ||str[i] == 'D' ||
+		str[i] == 'U' || str[i] == 'u')	
 		*rez = ft_prnt_strjoin_prsn(lenprsn, *rez);
 	free (tmp);
 }
@@ -128,6 +136,8 @@ void	check_precision(char *str, char **rez)
 	int prsn;
 
 	prsn = count_precision(str);
+	if (prsn == 0 && (*rez)[0] == '0' && str[0] != '+')
+		(*rez)[0] = '\0';
 	if ((size_t)prsn > ft_strlen(*rez) && (*rez)[0] != '-')
 		make_precision(str, rez, prsn - ft_strlen(*rez));
 	if ((*rez)[0] == '-' && (size_t)prsn > ft_strlen(*rez) - 1)
@@ -154,7 +164,8 @@ int 	count_min_width(char *str)
 	j = 0;
 	while (str[i] != '\0')
 	{
-		if (ft_isdigit(str[i]) && (i == 0 || str[i - 1] != '.'))
+		if ((ft_isdigit(str[i]) && str[i] != '0') &&
+			(i == 0 || str[i - 1] != '.'))
 		{
 			while (ft_isdigit(str[i]))
 				width[j++] = str[i++];
@@ -173,7 +184,9 @@ void	check_min_width(char *str, char **rez)
 
 	wd = count_min_width(str);
 	if ((size_t)wd > ft_strlen(*rez))
+	{
 		make_width(rez, wd - ft_strlen(*rez));
+	}	
 }
 
 void	make_minus_flag(char **rez)
@@ -236,14 +249,14 @@ void	make_space_flag(char *str, char **rez)
 		if ((str[i++] == '+') || (*rez)[0] == ' ') 
 			return ;
 	i = 0;
-	while (*(rez)[i] != '\0')
-		if (*(rez)[i] == '-')
-			return ;
+	while ((*rez)[i] != '\0')
+		if ((*rez)[i++] == '-')
+			return ;		
 	if (ft_isdigit((*rez)[0]) && (*rez)[ft_strlen(*rez) - 1] != ' ')
 	{
 		*rez = ft_strjoin(" ", *rez);
 		free(tmp);
-	}	
+	}
 	if (ft_isdigit((*rez)[0]))
 	{ 
 		*rez = ft_prnt_space_flag(*rez);
@@ -270,11 +283,11 @@ void	check_flags(char *str, char **rez)
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 		if (str[i++] == '0')
 			make_zero_flag(str, rez);
-//	i = 0;
-//	while (str[i] != '.' && !(ft_isalpha(str[i]))\
-//		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
-//		if (str[i++] == ' ')
-//			make_space_flag(str, rez);
+	i = 0;
+	while (str[i] != '.' && !(ft_isalpha(str[i]))\
+		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
+		if (str[i++] == ' ')
+			make_space_flag(str, rez);
 //	i = 0;
 //	while (str[i++] != '.' && !(ft_isalpha(str[i]))\
 //		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
@@ -287,12 +300,25 @@ void	check_flags(char *str, char **rez)
 void	conv_d_i(char *str, char **rez, va_list ap)
 {
 	check_size_spec(str, rez, ap);
-	if (*rez == NULL)
-		*rez = ft_itoa(va_arg(ap, int));
+	if (*rez == NULL && str[ft_strlen(str) - 1] != 'D')
+		*rez = ft_itoa(va_arg(ap, int));	
+	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'D')
+		*rez = ft_prnt_itoall((long long)va_arg(ap, int));
 	check_precision(str, rez);
 	check_min_width(str, rez);
 	check_flags(str, rez);
-	ft_putstr(*rez);
+}
+
+void	conv_u(char *str, char **rez, va_list ap)
+{
+	check_size_spec(str, rez, ap);
+	if (*rez == NULL && str[ft_strlen(str) - 1] == 'u')
+		*rez = ft_prnt_itoaus((unsigned int)va_arg(ap, int));
+	if (*rez == NULL && str[ft_strlen(str) - 1] == 'U')
+		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, int));
+	check_precision(str, rez);
+	check_min_width(str, rez);
+	check_flags(str, rez);
 }
 
 // check d, D, i, u, U
@@ -303,8 +329,10 @@ int check_digit_conv(char *str, va_list ap)
 
 	rez = NULL;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i')
+	if (str[i] == 'd' || str[i] == 'i' || str[i] == 'D')
 		conv_d_i(str, &rez, ap);
+	if (str[i] == 'u' || str[i] == 'U')
+		conv_u(str, &rez, ap);
 //	else if (str[i] == 'D')
 //		conv_bd(str, ap);
 //	else if (str[i] == 'i')
@@ -313,6 +341,7 @@ int check_digit_conv(char *str, va_list ap)
 //		conv_u(str, ap);
 //	else (str[i] == 'U')
 //		conv_bu(str, ap);
+	ft_putstr(rez);
 	free(rez);
 	return (ft_strlen(rez));
 }
@@ -419,18 +448,8 @@ void	check_char_conv(char *str, va_list ap)
 		conv_percent(str, ap);
 }
 */
-
-int main ()
-{
-	intmax_t i = -3;
-	intmax_t j = -1421414;
-	int a =	ft_printf("(023.13d)  - 123[%023.13jd]    [%023.13jd]\n", i, j);
-	int b = printf("(023.13d)  - 123[%023.13jd]    [%023.13jd]\n", i, j);
-	printf("a == %d\nb == %d\n", a, b);
-//	system ("leaks printf");
-	return (0);
-
-}
+/*
+}*/
 
 
 

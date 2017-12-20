@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_prnt_itoa_uintmax.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/12/18 21:24:53 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/12/18 21:30:50 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static	void	ft_rev(char *s)
 {
@@ -31,7 +30,7 @@ static	void	ft_rev(char *s)
 	}
 }
 
-static	int		ft_intlen(unsigned int n)
+static	int		ft_intlen(uintmax_t n)
 {
 	int			i;
 
@@ -46,7 +45,7 @@ static	int		ft_intlen(unsigned int n)
 	return (i);
 }
 
-static	void	ft_if(char *p, unsigned int n)
+static	void	ft_if(char *p, uintmax_t n)
 {
 	int			i;
 
@@ -61,7 +60,7 @@ static	void	ft_if(char *p, unsigned int n)
 	p[i] = '\0';
 }
 
-char			*ft_prnt_itoaui(unsigned int n)
+char			*ft_prnt_itoa_uintmax(uintmax_t n)
 {
 	char *p;
 

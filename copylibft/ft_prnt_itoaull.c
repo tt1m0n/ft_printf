@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_prnt_itoaull.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/12/18 21:51:23 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/12/18 21:51:26 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static	void	ft_rev(char *s)
 {
@@ -31,7 +30,7 @@ static	void	ft_rev(char *s)
 	}
 }
 
-static	int		ft_intlen(unsigned int n)
+static	int		ft_intlen(unsigned long long n)
 {
 	int			i;
 
@@ -46,7 +45,7 @@ static	int		ft_intlen(unsigned int n)
 	return (i);
 }
 
-static	void	ft_if(char *p, unsigned int n)
+static	void	ft_if(char *p, unsigned long long n)
 {
 	int			i;
 
@@ -61,7 +60,7 @@ static	void	ft_if(char *p, unsigned int n)
 	p[i] = '\0';
 }
 
-char			*ft_prnt_itoaui(unsigned int n)
+char			*ft_prnt_itoaull(unsigned long long n)
 {
 	char *p;
 

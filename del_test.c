@@ -144,11 +144,11 @@ int main ()
 	printf("(-7d)     - [%-7d]       [%-7d]\n", 45, -45);
 	printf("(- 7d)    - [%- 7d]      [%- 7d]\n", 45, -45);
 	printf("( -7d)    - [% -7d]      [% -7d]\n", 45, -45);
-	printf("(-+6.4d)     - [%-+6.4d]       [%-+6.4d]\n", 45, -45);
+	printf("(-.4+6d)     - [%-.4+6d]       [%-.4+6d]\n", 45, -45);
 	printf("(-+7d)    - [%-+7d]       [%-+7d]\n", 45, -45);
 	printf("( 15.7d)    - [% 15.7d]      [% 15.7d]\n", 45, -45);
 	printf("( 0.3d)   - [% 0.3d]     [% 0.3d]\n", 45, -45);
-	printf("( -5d)  - [% -5d]    [% -5d] - ", 45, -45); printf("If a precision is given with a numeric conversion\
+	printf("( D)  - [% d]    [% d] - ", 45, -45); printf("If a precision is given with a numeric conversion\
 		(d, i, o, u, i, x, and X), the 0 flag is ignored.\n\n");
 
 /*

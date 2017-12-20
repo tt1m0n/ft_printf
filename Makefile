@@ -6,14 +6,14 @@
 #    By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/10/26 18:09:32 by omakovsk          #+#    #+#              #
-#    Updated: 2017/12/18 21:19:20 by omakovsk         ###   ########.fr        #
+#    Updated: 2017/12/19 11:42:45 by omakovsk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft.a
+NAME = libftprintf.a
 FLAGS = -Wall -Werror -Wextra -c
 
-SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
+SRC = ft_printf.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 	  ft_memmove.c ft_memchr.c ft_memcmp.c ft_strlen.c ft_strdup.c ft_strcpy.c\
 	  ft_strncpy.c ft_strcat.c ft_strncat.c ft_strlcat.c\
 	  ft_strchr.c ft_strrchr.c ft_strstr.c ft_strnstr.c ft_strcmp.c\
@@ -28,7 +28,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 	  ft_myfactor.c ft_mypower.c ft_prnt_itoa_sizet.c ft_prnt_itoa_uintmax.c\
 	  ft_prnt_itoa_intmax.c ft_prnt_itoall.c ft_prnt_itoaull.c ft_prnt_itoas.c\
 	  ft_prnt_itoaus.c ft_prnt_strstr.c ft_prnt_strjoin_prsn.c ft_prnt_strjoin_width.c\
-	  ft_prnt_replace_spc.c ft_prnt_strjoin_plus.c ft_prnt_add_zero.c ft_prnt_space_flag.c\
+	  ft_prnt_replace_spc.c ft_prnt_strjoin_plus.c ft_prnt_add_zero.c\
+	  ft_prnt_space_flag.c ft_printf.c ft_prnt_itoaui.c
 
 OBJ	= $(SRC:.c=.o)
 
@@ -47,7 +48,7 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME)
-	@echo libft.a deleted -_-
+	@echo libftprintf.a deleted -_-
 
 re: fclean all
 

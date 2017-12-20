@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_myrev.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/11/07 09:25:49 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/11/07 09:25:52 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
-static	void	ft_rev(char *s)
+void	ft_myrev(char *s)
 {
 	int		i;
 	int		j;
 	char	c;
 
+	if (s == NULL)
+		return ;
 	i = 0;
 	j = ft_strlen(s) - 1;
 	while (i < j)
@@ -29,46 +30,4 @@ static	void	ft_rev(char *s)
 		i++;
 		j--;
 	}
-}
-
-static	int		ft_intlen(unsigned int n)
-{
-	int			i;
-
-	i = 0;
-	if (n == 0)
-		i = 1;
-	while (n != 0)
-	{
-		i++;
-		n = n / 10;
-	}
-	return (i);
-}
-
-static	void	ft_if(char *p, unsigned int n)
-{
-	int			i;
-
-	i = 0;
-	if (n == 0)
-		p[i++] = '0';
-	while (n != 0)
-	{
-		p[i++] = (n % 10) + '0';
-		n = n / 10;
-	}
-	p[i] = '\0';
-}
-
-char			*ft_prnt_itoaui(unsigned int n)
-{
-	char *p;
-
-	p = (char*)malloc(ft_intlen(n) + 1);
-	if (p == NULL)
-		return (NULL);
-	ft_if(p, n);
-	ft_rev(p);
-	return (p);
 }

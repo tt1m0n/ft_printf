@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_prnt_itoas.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/12/18 21:56:26 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/12/18 21:56:28 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static	void	ft_rev(char *s)
 {
@@ -31,26 +30,36 @@ static	void	ft_rev(char *s)
 	}
 }
 
-static	int		ft_intlen(unsigned int n)
+static	int		ft_intlen(short n)
 {
-	int			i;
+	int		i;
+	short	sign;
 
 	i = 0;
 	if (n == 0)
 		i = 1;
+	if (n == -32768)
+		return (6);
+	if ((sign = n) < 0)
+		n = -n;
 	while (n != 0)
 	{
 		i++;
 		n = n / 10;
 	}
+	if (sign < 0)
+		i++;
 	return (i);
 }
 
-static	void	ft_if(char *p, unsigned int n)
+static	void	ft_if(char *p, short n)
 {
-	int			i;
+	int		i;
+	short	sign;
 
 	i = 0;
+	if ((sign = n) < 0)
+		n = -n;
 	if (n == 0)
 		p[i++] = '0';
 	while (n != 0)
@@ -58,16 +67,23 @@ static	void	ft_if(char *p, unsigned int n)
 		p[i++] = (n % 10) + '0';
 		n = n / 10;
 	}
+	if (sign < 0)
+		p[i++] = '-';
 	p[i] = '\0';
 }
 
-char			*ft_prnt_itoaui(unsigned int n)
+char			*ft_prnt_itoas(short n)
 {
 	char *p;
 
 	p = (char*)malloc(ft_intlen(n) + 1);
 	if (p == NULL)
 		return (NULL);
+	if (n == -32768)
+	{
+		ft_strcpy(p, "-32768");
+		return (p);
+	}
 	ft_if(p, n);
 	ft_rev(p);
 	return (p);
