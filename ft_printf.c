@@ -309,6 +309,24 @@ void	make_space_flag(char *str, char **rez)
 		free(tmp);
 	}	
 }
+
+// x, X, o, O, p
+void	make_sharp_flags(char *str, char **rez)
+{
+	char *tmp;
+
+	tmp = *rez;
+	if (str[ft_strlen(str) - 1] == 'o' || str[ft_strlen(str) - 1] == 'x')
+	{	
+		*rez = ft_prnt_smshapr(*rez);
+		free(tmp);
+	}	
+	else if (str[ft_strlen(str) - 1] == 'O' || str[ft_strlen(str) - 1] == 'X')
+	{	
+		*rez = ft_prnt_bgshapr(*rez);
+		free(tmp);
+	}		
+}
 // [-] [+] [ ] [#] [0]
 void	check_flags(char *str, char **rez)
 {
@@ -338,13 +356,13 @@ void	check_flags(char *str, char **rez)
 		if (str[i++] == ' ' && (str[ft_strlen(str) - 1] == 'd' ||
 			str[ft_strlen(str) - 1] == 'D' || str[ft_strlen(str) - 1] == 'i'))
 			make_space_flag(str, rez);
-//	i = 0;
-//	while (str[i++] != '.' && !(ft_isalpha(str[i]))\
-//		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
-//		if (str[i] == '#' && (str[ft_strlen(str) - 1] == 'o' ||
-//			str[ft_strlen(str) - 1] == 'O' || str[ft_strlen(str) - 1] == 'x' ||
-//			str[ft_strlen(str) - 1] == 'X'))
-//			make_sharp_flag(str, rez);
+	i = 0;
+	while (str[i++] != '.' && !(ft_isalpha(str[i]))\
+		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
+		if (str[i] == '#' && (str[ft_strlen(str) - 1] == 'o' ||
+			str[ft_strlen(str) - 1] == 'O' || str[ft_strlen(str) - 1] == 'x' ||
+			str[ft_strlen(str) - 1] == 'X'))
+			make_sharp_flag(str, rez);
 }
 
 void	conv_d_i(char *str, char **rez, va_list ap)
@@ -381,7 +399,10 @@ void	conv_ox(char *str, char **rez, va_list ap)
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'O')
 		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 8, 1);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'X')
-		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 1);	
+		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 1);
+	check_precision(str, rez);
+	check_min_width(str, rez);
+	check_flags(str, rez);
 }
 
 

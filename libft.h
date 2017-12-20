@@ -58,6 +58,7 @@ char				*ft_prnt_itoaui_octhex(unsigned int n, int base, int x);
 char				*ft_prnt_itoaus_octhex(unsigned short n, int base, int x);
 char				*ft_prnt_itoaull_octhex(unsigned long long n, int base, int x);
 char				*ft_prnt_itoauimax_octhex(uintmax_t n, int base, int x);
+char				*ft_prnt_smsharp(const char *str);
 
 
 void				*ft_memset(void *b, int c, size_t len);

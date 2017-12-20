@@ -30,7 +30,8 @@ SRC = ft_printf.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 	  ft_prnt_itoaus.c ft_prnt_strstr.c ft_prnt_strjoin_prsn.c ft_prnt_strjoin_width.c\
 	  ft_prnt_replace_spc.c ft_prnt_strjoin_plus.c ft_prnt_add_zero.c\
 	  ft_prnt_space_flag.c ft_printf.c ft_prnt_itoaui.c ft_prnt_itoaui_octhex.c\
-	  ft_prnt_itoaus_octhex.c ft_prnt_itoaull_octhex.c ft_prnt_itoauimax_octhex.c
+	  ft_prnt_itoaus_octhex.c ft_prnt_itoaull_octhex.c ft_prnt_itoauimax_octhex.c\
+	  ft_prnt_smsharp.c
 
 OBJ	= $(SRC:.c=.o)
 

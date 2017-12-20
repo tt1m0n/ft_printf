@@ -133,7 +133,7 @@ int main ()
 	// l/d = −9 223 372 036 854 775 807, 9 223 372 036 854 775 807	
 	// flags: [-] [+] [0]
 	// 1. if flags +- or -+ like +
-
+/*
 	printf("(d)       - [%d]         [%d]\n", 45, -45);
 	printf("(1d)      - [%1d]        [%1d]\n", 45, -45);
 	printf("(7d)      - [%7d]        [%7d]\n", 45, -45);
@@ -150,9 +150,9 @@ int main ()
 	printf("( 0.3d)   - [% 0.3d]     [% 0.3d]\n", 45, -45);
 	printf("( D)  - [% d]    [% d] - ", 45, -45); printf("If a precision is given with a numeric conversion\
 		(d, i, o, u, i, x, and X), the 0 flag is ignored.\n\n");
+*/
 
-/*
-	//D? - work like u-conv
+/*	//D? - work like u-conv
 	printf("(D)       - [%D]         [%D]\n", 45, -45);
 	printf("(14D)     - [%14D]       [%14D]\n", 45, -45);
 	printf("(014D)    - [%014D]      [%014D]\n", 45, -45);
@@ -195,7 +195,7 @@ int main ()
 	printf("(14.20o)  - [%14.20o]    [%14.20o]\n", 45, -45);
 	printf("(-#14.4o) - [%-#14.4o]   [%-#14.4o]\n\n\n", 45, -45);
 
-
+*/
 	// x and X = unsigned int(4 294 967 295), h/x or h/X - unsigned short (65 535)
 	// l/x or l/X = unsigned long(18 446 744 073 709 551 615)
 	// flags: [-] [#] [0]
@@ -204,14 +204,14 @@ int main ()
 	printf("(x)       - [%x]         [%x]\n", 45, -45);
 	printf("(14x)     - [%14x]       [%14x]\n", 45, -45);
 	printf("(014x)    - [%014x]      [%014x]\n", 45, -45);
-	printf("(#14x)    - [%#14x]      [%#14x]\n", 45, -45);
+	printf("(#14x)    - [%#14x]      [%#14x]\n", 0, 0);
 	printf("(-14x)    - [%-14x]      [%-14x]\n", 45, -45);
-	printf("(-#14x)   - [%-#14x]     [%-#14x]\n", 45, -45);
+	printf("(-#14x)   - [%-#14x]     [%-#14x]\n", 0 , 0);
 	printf("(14.4x)   - [%14.4x]     [%14.4x]\n", 45, -45);
 	printf("(14.20x)  - [%14.20x]    [%14.20x]\n", 45, -45);
 	printf("(-#14.4x) - [%-#14.4x]   [%-#14.4x]\n\n\n", 45, -45);	
 
-	//X
+/*	//X
 	printf("(X)       - [%X]         [%X]\n", 45, -45);
 	printf("(14X)     - [%14X]       [%14X]\n", 45, -45);
 	printf("(014X)    - [%014X]      [%014X]\n", 45, -45);

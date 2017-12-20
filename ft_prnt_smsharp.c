@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_prnt_smsharp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/12/20 18:39:48 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/12/20 18:39:50 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "copylibft/libft.h"
-#include <stdio.h>
+#include "libft.h"
 
 char	*ft_ret_zero(const char *str)
 {
