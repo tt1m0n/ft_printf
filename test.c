@@ -12,7 +12,7 @@
 
 #include "libft.h"
 #include <stdio.h>
-/*
+
 static	void	ft_rev(char *s)
 {
 	int		i;
@@ -31,72 +31,67 @@ static	void	ft_rev(char *s)
 	}
 }
 
-
-static	int		ft_intlen(void *n, int base)
+static	int		ft_intlen(long long n)
 {
 	int			i;
+	long long	sign;
 
 	i = 0;
 	if (n == 0)
 		i = 1;
+	if (n == -9223372036854775807 - 1)
+		return (20);
+	if ((sign = n) < 0)
+		n = -n;
 	while (n != 0)
 	{
 		i++;
-		n = n / base;
+		n = n / 10;
 	}
+	if (sign < 0)
+		i++;
 	return (i);
 }
 
-static char		ft_conv(void *n, int base)
-{
-	unsigned int rez;
-
-	rez = n % base;
-	if (base == 8)
-		return (rez + '0');
-	else
-	{
-		if (rez <= 9)
-			return (rez + '0');
-		else if (rez > 9 && rez <= 15)
-			return ('a' + rez - 10); 
-	}
-	return ('0');
-}
-
-static	void	ft_if(char *p, void *n, int base)
+static	void	ft_if(char *p, long long n)
 {
 	int			i;
+	long long	sign;
 
 	i = 0;
+	if ((sign = n) < 0)
+		n = -n;
 	if (n == 0)
 		p[i++] = '0';
 	while (n != 0)
 	{
-		p[i++] = ft_conv(n, base);
-		n = n / base;
+		p[i++] = (n % 10) + '0';
+		n = n / 10;
 	}
+	if (sign < 0)
+		p[i++] = '-';
 	p[i] = '\0';
 }
 
-char			*ft_prnt_itoaui_octhex(void *n, int base)
+char			*ft_prnt_itoall(long long n)
 {
 	char *p;
 
-	p = (char*)malloc(ft_intlen(n, base) + 1);
+	p = (char*)malloc(ft_intlen(n) + 1);
 	if (p == NULL)
 		return (NULL);
-	ft_if(p, n, base);
+	if (n == -9223372036854775807 - 1)
+	{
+		ft_strcpy(p, "-9223372036854775808");
+		return (p);
+	}
+	ft_if(p, n);
 	ft_rev(p);
 	return (p);
 }
-*/
+
 int main ()
 {
-	int a;
-	char b;
-	long long c;
-//	printf ("%s\n", ft_prnt_itoaui_octhex(12331312, 8));
-	printf ("%p\n", &b);
+	printf ("%s\n", ft_prnt_itoall(4294967295));
 	return (0);
 }
