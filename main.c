@@ -3,8 +3,8 @@
 
 int main ()
 {
-	printf("[%+d]\n", 0);
-	ft_printf("[%+d]\n", 0);
+	printf("[%zd]\n", -0); 
+	ft_printf("[%zd]", -0); 
 //	system ("leaks printf");
 	return (0);
 }	

@@ -35,9 +35,10 @@ void				ft_putstr(char const *s);
 void				ft_strclr(char *s);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
-int					ft_printf(const char *format, ...);
+char				*ft_strjoin(char const *s1, char const *s2);
 
 //my
+int					ft_printf(const char *format, ...);
 char				*ft_prnt_itoaui(unsigned int n);
 int					ft_prnt_strstr(const char *haystack, const char *needle);
 char				*ft_prnt_strjoin_prsn(int size, char const *s2);
@@ -53,6 +54,10 @@ char				*ft_prnt_itoas(short n);
 char				*ft_prnt_itoa_intmax(intmax_t n);
 char				*ft_prnt_itoa_uintmax(uintmax_t n);
 char				*ft_prnt_itoa_sizet(size_t n);
+char				*ft_prnt_itoaui_octhex(unsigned int n, int base, int x);
+char				*ft_prnt_itoaus_octhex(unsigned short n, int base, int x);
+char				*ft_prnt_itoaull_octhex(unsigned long long n, int base, int x);
+char				*ft_prnt_itoauimax_octhex(uintmax_t n, int base, int x);
 
 
 void				*ft_memset(void *b, int c, size_t len);
@@ -93,7 +98,6 @@ char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
-char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_itoa(int n);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);

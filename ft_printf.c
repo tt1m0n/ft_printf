@@ -24,6 +24,14 @@ void	size_spec_hh(char *str, char **rez, va_list ap)
 		*rez = ft_itoa((char)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_itoa((unsigned char)va_arg(ap, void*));
+	else if (str[i] == 'o')
+		*rez = ft_prnt_itoaui_octhex((unsigned char)va_arg(ap, void*), 8, 0);
+	else if (str[i] == 'x')
+		*rez = ft_prnt_itoaui_octhex((unsigned char)va_arg(ap, void*), 16, 0);
+	else if (str[i] == 'O')
+		*rez = ft_prnt_itoaui_octhex((unsigned char)va_arg(ap, void*), 8, 1);
+	else if (str[i] == 'X')
+		*rez = ft_prnt_itoaui_octhex((unsigned char)va_arg(ap, void*), 16, 1);
 }
 
 void	size_spec_ll(char *str, char **rez, va_list ap)
@@ -34,6 +42,14 @@ void	size_spec_ll(char *str, char **rez, va_list ap)
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
+	else if (str[i] == 'o')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 0);
+	else if (str[i] == 'x')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
+	else if (str[i] == 'O')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 1);
+	else if (str[i] == 'X')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 1);
 }
 
 void	size_spec_h(char *str, char **rez, va_list ap)
@@ -44,6 +60,14 @@ void	size_spec_h(char *str, char **rez, va_list ap)
 		*rez = ft_prnt_itoas((short)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoaus((unsigned short)va_arg(ap, void*));
+	else if (str[i] == 'o')
+		*rez = ft_prnt_itoaus_octhex((unsigned short)va_arg(ap, void*), 8, 0);
+	else if (str[i] == 'x')
+		*rez = ft_prnt_itoaus_octhex((unsigned short)va_arg(ap, void*), 16, 0);
+	else if (str[i] == 'O')
+		*rez = ft_prnt_itoaus_octhex((unsigned short)va_arg(ap, void*), 8, 1);
+	else if (str[i] == 'X')
+		*rez = ft_prnt_itoaus_octhex((unsigned short)va_arg(ap, void*), 16, 1);
 }
 
 void	size_spec_l(char *str, char **rez, va_list ap)
@@ -54,6 +78,14 @@ void	size_spec_l(char *str, char **rez, va_list ap)
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
+	else if (str[i] == 'o')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 0);
+	else if (str[i] == 'x')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
+	else if (str[i] == 'O')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 1);
+	else if (str[i] == 'X')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 1);
 }
 
 void	size_spec_j(char *str, char **rez, va_list ap)
@@ -64,6 +96,14 @@ void	size_spec_j(char *str, char **rez, va_list ap)
 		*rez = ft_prnt_itoa_intmax((intmax_t)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoa_uintmax((uintmax_t)va_arg(ap, void*));
+	else if (str[i] == 'o')
+		*rez = ft_prnt_itoauimax_octhex((uintmax_t)va_arg(ap, void*), 8, 0);
+	else if (str[i] == 'x')
+		*rez = ft_prnt_itoauimax_octhex((uintmax_t)va_arg(ap, void*), 16, 0);
+	else if (str[i] == 'O')
+		*rez = ft_prnt_itoauimax_octhex((uintmax_t)va_arg(ap, void*), 8, 1);
+	else if (str[i] == 'X')
+		*rez = ft_prnt_itoauimax_octhex((uintmax_t)va_arg(ap, void*), 16, 1);
 
 }
 
@@ -71,10 +111,21 @@ void	size_spec_z(char *str, char **rez, va_list ap)
 {
 	int i;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i') // D?
+	if (str[i] == 'd' || str[i] == 'i')
+	{	
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
-	else if (str[i] == 'u')
+		printf ("rez = %s\n", *rez);
+	}	
+	else if (str[i] == 'u') // D?
 		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
+	else if (str[i] == 'o')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 0);
+	else if (str[i] == 'x')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
+	else if (str[i] == 'O')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 1);
+	else if (str[i] == 'X')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 1);
 }
 
 void	check_size_spec(char *str, char **rez, va_list ap)
@@ -314,12 +365,26 @@ void	conv_u(char *str, char **rez, va_list ap)
 	check_size_spec(str, rez, ap);
 	if (*rez == NULL && str[ft_strlen(str) - 1] == 'u')
 		*rez = ft_prnt_itoaus((unsigned int)va_arg(ap, int));
-	if (*rez == NULL && str[ft_strlen(str) - 1] == 'U')
+	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'U')
 		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, int));
 	check_precision(str, rez);
 	check_min_width(str, rez);
 	check_flags(str, rez);
 }
+
+void	conv_ox(char *str, char **rez, va_list ap)
+{
+	check_size_spec(str, rez, ap);
+	if (*rez == NULL && str[ft_strlen(str) - 1] == 'o')
+		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 8, 0);
+	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'x')
+		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 0);	
+	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'O')
+		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 8, 1);
+	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'X')
+		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 1);	
+}
+
 
 // check d, D, i, u, U
 int check_digit_conv(char *str, va_list ap)
@@ -341,6 +406,30 @@ int check_digit_conv(char *str, va_list ap)
 //		conv_u(str, ap);
 //	else (str[i] == 'U')
 //		conv_bu(str, ap);
+	ft_putstr(rez);
+	free(rez);
+	return (ft_strlen(rez));
+}
+
+// check o, O, x, X
+int	check_octhex_conv(char *str, va_list ap)
+{
+	int i;
+
+	char *rez;
+
+	rez = NULL;
+	i = ft_strlen(str) - 1;
+	if (str[i] == 'o' || str[i] == 'O' || str[i] == 'x' || str[i] == 'X')
+		conv_ox(str, &rez, ap);
+//	else if (str[i] == 'O')
+//		conv_bo(str, ap);
+//	else if (str[i] == 'x')
+//		conv_x(str, ap);
+//	else if (str[i] == 'X')
+//		conv_X(str, ap);
+//	else (str[i] == 'p')
+//		conv_p(str, ap);
 	ft_putstr(rez);
 	free(rez);
 	return (ft_strlen(rez));
@@ -384,7 +473,7 @@ int	ft_printf(const char *format, ...)
 				{
 					mainstr[j] = format[i];
 					sign = 0;
-				//	check_octhex_conv(mainstr, ap);
+					ret = ret + check_octhex_conv(mainstr, ap);
 				}
 				else if (format[i] == 'c' || format[i] == 'C' ||
 					format[i] == 's' || format[i] == 'S' ||
@@ -413,24 +502,8 @@ int	ft_printf(const char *format, ...)
 	return (ret);
 }
 
+
 /*
-void	check_octhex_conv(char *str, va_list ap)
-{
-	int i;
-
-	i = ft_strlen(str) - 1;
-	if (str[i] == 'o')
-		conv_o(str, ap);
-	else if (str[i] == 'O')
-		conv_bo(str, ap);
-	else if (str[i] == 'x')
-		conv_x(str, ap);
-	else if (str[i] == 'X')
-		conv_X(str, ap);
-	else (str[i] == 'p')
-		conv_p(str, ap);
-}
-
 void	check_char_conv(char *str, va_list ap)
 {
 	int i;

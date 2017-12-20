@@ -124,7 +124,7 @@ int main ()
     	2. value to hexademical (means in 16-system);
     	3. relevant [-] [0] [#] | PRECISION | SS
     [X] 
-    	1. like lx (unsigned long);
+    	1. like x (unsigned int) but /ABCDEF/;
     	2. value to hexademical;
     	3. relevant [-] [0] [#] | PRECISION | SS
 		
