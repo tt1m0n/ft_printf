@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prnt_smsharp.c                                  :+:      :+:    :+:   */
+/*   ft_prnt_bgsharp.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/20 18:39:48 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/20 18:39:50 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/12/20 18:41:53 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/12/20 18:41:55 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	*ft_one_or_twospace(const char *str, size_t len, int i, int j)
 		if (!(p = (char*)malloc(sizeof(char) * ft_strlen(str) + 3)))
 			return (NULL);
 		p[0] = '0';
-		p[1] = 'x';
+		p[1] = 'X';
 		while (str[++i] != '\0')
 			p[i + 2] = str[i];
 		p[i + 2] = '\0';
@@ -48,7 +48,7 @@ static char	*ft_one_or_twospace(const char *str, size_t len, int i, int j)
 		if (!(p = (char*)malloc(sizeof(char) * ft_strlen(str) + 2)))
 			return (NULL);
 		p[0] = '0';
-		p[1] = 'x';
+		p[1] = 'X';
 		while (str[++i] != '\0')
 			if (str[i] != ' ')
 				p[j++] = str[i];
@@ -70,7 +70,7 @@ static char	*ft_first_space(char **p, const char *str)
 			str[i + 2] != '\0' && str[i + 2] != ' ')
 		{
 			(*p)[j++] = '0';
-			(*p)[j] = 'x';
+			(*p)[j] = 'X';
 			i = i + 1;
 		}
 		else
@@ -93,7 +93,7 @@ static char	*ft_more_twospc(const char *str, int i, int j)
 	else if (str[0] != ' ')
 	{
 		p[0] = '0';
-		p[1] = 'x';
+		p[1] = 'X';
 		while (str[i + 2] != '\0')
 		{
 			p[j + 2] = str[i++];
@@ -104,7 +104,7 @@ static char	*ft_more_twospc(const char *str, int i, int j)
 	return (p);
 }
 
-char		*ft_prnt_smsharp(const char *str)
+char		*ft_prnt_bgsharp(const char *str)
 {
 	int		i;
 	char	*p;

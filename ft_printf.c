@@ -148,10 +148,13 @@ void	make_precision(char *str, char **rez, int lenprsn)
 
 	tmp = *rez;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i' ||str[i] == 'D' ||
-		str[i] == 'U' || str[i] == 'u')	
+	//if (str[i] == 'd' || str[i] == 'i' ||str[i] == 'D' ||
+	//	str[i] == 'U' || str[i] == 'u')	
+	if (str[i] != 'c' && str[i] != 'C' && str[i] != 'p' && str[i] != '%')
+	{		
 		*rez = ft_prnt_strjoin_prsn(lenprsn, *rez);
-	free (tmp);
+		free (tmp);
+	}	
 }
 
 int  	count_precision(char *str)
@@ -174,7 +177,7 @@ int  	count_precision(char *str)
 		}
 		i++;
 	}
-	return (-1);
+	return (0);
 }
 
 void	check_precision(char *str, char **rez)
@@ -182,10 +185,10 @@ void	check_precision(char *str, char **rez)
 	int prsn;
 
 	prsn = count_precision(str);
-	if (prsn == 0 && (*rez)[0] == '0')
-		(*rez)[0] = '\0';
-	if ((size_t)prsn > ft_strlen(*rez) && (*rez)[0] != '-')
-		make_precision(str, rez, prsn - ft_strlen(*rez));
+//	if (prsn == 0 && (*rez)[0] == '0')
+//		(*rez)[0] = '\0';
+	if (((size_t)prsn > ft_strlen(*rez)) && (*rez)[0] != '-')
+		make_precision(str, rez, prsn - ft_strlen(*rez));	
 	if ((*rez)[0] == '-' && (size_t)prsn > ft_strlen(*rez) - 1)
 		make_precision(str, rez, prsn - ft_strlen(*rez) + 1);
 }
@@ -221,7 +224,7 @@ int 	count_min_width(char *str)
 		i++;	
 	}
 	wd = ft_atoi(width);
-	return (wd);
+	return ((size_t)wd);
 }
 
 void	check_min_width(char *str, char **rez)
@@ -230,9 +233,7 @@ void	check_min_width(char *str, char **rez)
 
 	wd = count_min_width(str);
 	if ((size_t)wd > ft_strlen(*rez))
-	{
 		make_width(rez, wd - ft_strlen(*rez));
-	}	
 }
 
 void	make_minus_flag(char **rez)
@@ -259,7 +260,7 @@ void	make_plus_flag(char **rez)
 	if ((*rez)[i] != '-')
 	{
 		tmp = *rez;
-		*rez = ft_prnt_strjoin_plus(*rez);
+		*rez = ft_prnt_strjoin_smb(*rez, '+');
 		free(tmp);
 	}
 }
@@ -311,21 +312,20 @@ void	make_space_flag(char *str, char **rez)
 }
 
 // x, X, o, O, p
-void	make_sharp_flags(char *str, char **rez)
+void	make_sharp_flag(char *str, char **rez)
 {
 	char *tmp;
 
 	tmp = *rez;
-	if (str[ft_strlen(str) - 1] == 'o' || str[ft_strlen(str) - 1] == 'x')
-	{	
-		*rez = ft_prnt_smshapr(*rez);
-		free(tmp);
-	}	
-	else if (str[ft_strlen(str) - 1] == 'O' || str[ft_strlen(str) - 1] == 'X')
-	{	
-		*rez = ft_prnt_bgshapr(*rez);
-		free(tmp);
-	}		
+	if (str[ft_strlen(str) - 1] == 'x')
+		*rez = ft_prnt_smsharp(*rez);
+	else if (str[ft_strlen(str) - 1] == 'X')
+		*rez = ft_prnt_bgsharp(*rez);
+	else if (str[ft_strlen(str) - 1] == 'o')
+		*rez = ft_prnt_strjoin_smb(*rez, '0');
+	else if (str[ft_strlen(str) - 1] == 'O')
+		*rez = ft_prnt_strjoin_smb(*rez, '0');
+	free(tmp);
 }
 // [-] [+] [ ] [#] [0]
 void	check_flags(char *str, char **rez)
@@ -357,9 +357,9 @@ void	check_flags(char *str, char **rez)
 			str[ft_strlen(str) - 1] == 'D' || str[ft_strlen(str) - 1] == 'i'))
 			make_space_flag(str, rez);
 	i = 0;
-	while (str[i++] != '.' && !(ft_isalpha(str[i]))\
+	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
-		if (str[i] == '#' && (str[ft_strlen(str) - 1] == 'o' ||
+		if (str[i++] == '#' && (str[ft_strlen(str) - 1] == 'o' ||
 			str[ft_strlen(str) - 1] == 'O' || str[ft_strlen(str) - 1] == 'x' ||
 			str[ft_strlen(str) - 1] == 'X'))
 			make_sharp_flag(str, rez);
@@ -369,7 +369,7 @@ void	conv_d_i(char *str, char **rez, va_list ap)
 {
 	check_size_spec(str, rez, ap);
 	if (*rez == NULL && str[ft_strlen(str) - 1] != 'D')
-		*rez = ft_itoa(va_arg(ap, int));	
+		*rez = ft_itoa(va_arg(ap, int));		
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'D')
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
 	check_precision(str, rez);

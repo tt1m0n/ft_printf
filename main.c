@@ -1,10 +1,11 @@
-#include "copylibft/libft.h"
+#include "libft.h"
 #include <stdio.h>
 
 int main ()
 {
-	printf("%hU\n", 4294967296);
-	ft_printf("%hU", 4294967296);
+	printf("or [%++ d]\n", 42);
+	ft_printf("my [%++ d]\n", 42);
 //	system ("leaks printf");
 	return (0);
 }	
+

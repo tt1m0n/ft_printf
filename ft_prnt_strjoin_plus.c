@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-static char		*ft_prnt_add(char *p, char const *s)
+static char		*ft_prnt_add(char *p, char const *s, char c)
 {
 	int i;
 
@@ -21,7 +21,7 @@ static char		*ft_prnt_add(char *p, char const *s)
 		return (NULL);
 	if (ft_isdigit(s[0]))
 	{
-		p[i++] = '+';
+		p[i++] = c;
 		while (*(s + 1) != '\0')
 			p[i++] = *(s++);
 	}
@@ -29,7 +29,7 @@ static char		*ft_prnt_add(char *p, char const *s)
 	{
 		while (!(ft_isdigit(*(s + 1))))
 			p[i++] = *(s++);
-		p[i++] = '+';
+		p[i++] = c;
 		while (*s != '\0')
 		{
 			if (ft_isdigit(*s))
@@ -41,7 +41,7 @@ static char		*ft_prnt_add(char *p, char const *s)
 	return (p);
 }
 
-char			*ft_prnt_strjoin_plus(char const *s)
+char			*ft_prnt_strjoin_smb(char const *s, char c)
 {
 	int		i;
 	int		count;
@@ -56,12 +56,12 @@ char			*ft_prnt_strjoin_plus(char const *s)
 		p = (char*)malloc(ft_strlen(s) + 2);
 		if (p == NULL)
 			return (NULL);
-		p[i++] = '+';
+		p[i++] = c;
 		while (*s != '\0')
 			p[i++] = *(s++);
 		p[i] = '\0';
 	}
 	else
-		p = ft_prnt_add(p, s);
+		p = ft_prnt_add(p, s, c);
 	return (p);
 }
