@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_prnt_prs_str.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Created: 2017/12/22 16:12:52 by omakovsk          #+#    #+#             */
+/*   Updated: 2017/12/22 16:12:55 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "copylibft/libft.h"
-#include <stdio.h>
+#include "libft.h"
 
-char	*ft_prnt_prs(int len, char const *str)
+char	*ft_prnt_prs_str(int len, char const *str)
 {
 	int		i;
 	char	*p;
@@ -23,16 +22,10 @@ char	*ft_prnt_prs(int len, char const *str)
 	if (p == NULL)
 		return (NULL);
 	while (len-- > 0)
-	{	
+	{
 		p[i] = str[i];
 		i++;
-	}	
+	}
 	p[i] = '\0';
 	return (p);
-}
-
-int main ()
-{
-	printf ("%s\n", ft_prnt_strjoin_width(5, "fakamakadon"));
-	return (0);
 }

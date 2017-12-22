@@ -148,13 +148,20 @@ void	make_precision(char *str, char **rez, int lenprsn)
 
 	tmp = *rez;
 	i = ft_strlen(str) - 1;
-	//if (str[i] == 'd' || str[i] == 'i' ||str[i] == 'D' ||
-	//	str[i] == 'U' || str[i] == 'u')	
 	if (str[i] != 'c' && str[i] != 'C' && str[i] != 'p' && str[i] != '%')
 	{		
 		*rez = ft_prnt_strjoin_prsn(lenprsn, *rez);
 		free (tmp);
 	}	
+}
+
+void	make_precision_str(char **rez, int len)
+{
+	char *tmp;
+
+	tmp = *rez;
+	*rez = ft_prnt_prs_str(len, *rez);
+	free(tmp);
 }
 
 int  	count_precision(char *str, char *rez)
@@ -195,10 +202,15 @@ void	check_precision(char *str, char **rez)
 		(*rez)[0] = '\0';
 	else
 	{	
-		if (((size_t)prsn > ft_strlen(*rez)) && (*rez)[0] != '-')
+		if (((size_t)prsn > ft_strlen(*rez)) && (*rez)[0] != '-' &&
+			str[ft_strlen(str) - 1] != 's')
 			make_precision(str, rez, prsn - ft_strlen(*rez));	
-		if ((*rez)[0] == '-' && (size_t)prsn > ft_strlen(*rez) - 1)
+		if ((*rez)[0] == '-' && (size_t)prsn > ft_strlen(*rez) - 1 &&
+			str[ft_strlen(str) - 1] != 's')
 			make_precision(str, rez, prsn - ft_strlen(*rez) + 1);
+		if (((size_t)prsn < ft_strlen(*rez)) && str[ft_strlen(str) - 1] == 's' &&
+			prsn != 0)	
+			make_precision_str(rez, prsn);
 	}	
 }
 
@@ -242,7 +254,12 @@ void	check_min_width(char *str, char **rez)
 
 	wd = count_min_width(str);
 	if ((size_t)wd > ft_strlen(*rez))
-		make_width(rez, wd - ft_strlen(*rez));
+	{	
+		if ((*rez)[0] == '\0' && str[ft_strlen(str) - 1] != 's')
+			make_width(rez, wd - 1 - ft_strlen(*rez));
+		else
+			make_width(rez, wd - ft_strlen(*rez));
+	}	
 }
 
 void	make_minus_flag(char **rez)
@@ -455,6 +472,29 @@ int check_digit_conv(char *str, va_list ap)
 	return (len);
 }
 
+int	print_flag_c (char *rez)
+{
+	int i;
+
+	i = 0;
+	while (rez[i] != '\0')
+	{	
+		if (rez[i] != ' ')
+		{	
+			ft_putstr(rez);
+			return (0);
+			break ;
+		}	
+		i++;
+	}		
+	if (rez[i] == '\0')
+	{	
+		write (1, rez, ft_strlen(rez) + 1);
+		return (1);
+	}
+	return(0);
+}
+
 // check o, O, x, X
 int	check_octhex_conv(char *str, va_list ap)
 {
@@ -463,41 +503,49 @@ int	check_octhex_conv(char *str, va_list ap)
 	char *rez;
 
 	rez = NULL;
+	len = 0;
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'o' || str[i] == 'O' || str[i] == 'x' ||
 		str[i] == 'X' || str[i] == '%' || str[i] == 'c')
 		conv_ox(str, &rez, ap);
-//	else (str[i] == 'p')
-//		conv_p(str, ap);
 	if (str[i] == 'c')
-		write (1, rez, ft_strlen(rez) + 1);
+		len = print_flag_c(rez);
 	else
 		ft_putstr(rez);
-	
-	len = ft_strlen(rez);
+	len = len + ft_strlen(rez);
 	ft_strclr(rez);
 	free(rez);
 	return (len);
 }
 
-// check s, S, c, C
-/*void	check_char_conv(char *str, va_list ap)
+char *write_string(va_list ap)
 {
-	int i;
+	char *p;
+	char *str;
 
+	p = ft_memalloc(1000);
+	p = ft_strcpy(p, va_arg(ap, char*));
+	if (p == NULL)
+		return (NULL);
+	str = (char*)malloc(sizeof(char) * ft_strlen(p) + 1);
+	ft_memcpy(str, p, ft_strlen(p) + 1);
+	free(p);
+	return (str);
+}
+
+int check_s_conv(char *str, va_list ap)
+{
 	int len;
 	char *rez;
 
-	rez = NULL;
-	i = ft_strlen(str) - 1;
-	if (str[i] == 'c')
-		conv_c(str, ap);
-	else if (str[i] == 'C')
-		conv_bc(str, ap);
-	else if (str[i] == 's')
-		conv_s(str, ap);
-	else if (str[i] == 'S')
-		conv_bs(str, ap);
+	if (!(rez = write_string(ap)))
+	{
+		ft_putstr("(null)");	
+		return (6);
+	}	
+	check_precision(str, &rez);
+	check_min_width(str, &rez);
+	check_flags(str, &rez);
 
 	ft_putstr(rez);
 	len = ft_strlen(rez);
@@ -505,7 +553,7 @@ int	check_octhex_conv(char *str, va_list ap)
 	free(rez);
 	return (len);
 }
-*/
+
 int	ft_printf(const char *format, ...)
 {
 	int i;
@@ -527,7 +575,7 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%')
 		{
 			i++;
-			while(sign)
+			while(sign && format[i] != '\0')
 			{	
 				if (format[i] == 'd' || format[i] == 'D' ||
 					format[i] == 'i' || format[i] == 'u' ||
@@ -547,12 +595,11 @@ int	ft_printf(const char *format, ...)
 					sign = 0;
 					ret = ret + check_octhex_conv(mainstr, ap);
 				}
-				if (format[i] == 'C' ||
-					format[i] == 's' || format[i] == 'S')
+				if (format[i] == 's')
 				{
 					mainstr[j] = format[i];
 					sign = 0;
-				//	ret = ret + check_char_conv(mainstr, ap);
+					ret = ret + check_s_conv(mainstr, ap);
 				}
 				else	
 					mainstr[j] = format[i];
@@ -561,7 +608,7 @@ int	ft_printf(const char *format, ...)
 			}
 		ft_strclr(mainstr);
 		}
-		if(format[i] != '\0')
+		if(format[i] != '\0' && format[i] != '%')
 		{	
 			ft_putchar(format[i]);
 			i++;
