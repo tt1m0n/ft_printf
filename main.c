@@ -3,8 +3,9 @@
 
 int main ()
 {
-	printf("or [%++ d]\n", 42);
-	ft_printf("my [%++ d]\n", 42);
+
+	printf("or [%5c]\n", '\0');
+	ft_printf("my [%5c]\n", '\0');
 //	system ("leaks printf");
 	return (0);
 }	
