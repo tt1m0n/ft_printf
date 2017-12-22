@@ -255,7 +255,12 @@ void	check_min_width(char *str, char **rez)
 	wd = count_min_width(str);
 	if ((size_t)wd > ft_strlen(*rez))
 	{	
-		if ((*rez)[0] == '\0' && str[ft_strlen(str) - 1] != 's')
+		if ((*rez)[0] == '\0' && str[ft_strlen(str) - 1] != 's' &&
+			str[ft_strlen(str) - 1] != 'x' && str[ft_strlen(str) - 1] != 'X' &&
+			str[ft_strlen(str) - 1] != 'o' && str[ft_strlen(str) - 1] != 'O' &&
+			str[ft_strlen(str) - 1] != 'd' && str[ft_strlen(str) - 1] != 'D' &&
+			str[ft_strlen(str) - 1] != 'i' && str[ft_strlen(str) - 1] != 'u' &&
+			str[ft_strlen(str) - 1] != 'U')
 			make_width(rez, wd - 1 - ft_strlen(*rez));
 		else
 			make_width(rez, wd - ft_strlen(*rez));
@@ -337,20 +342,38 @@ void	make_space_flag(char *str, char **rez)
 	}	
 }
 
+char *make_sharpwith_zero(char *str, char *rez)
+{
+	if (str[ft_strlen(str) - 1] == 'o' || str[ft_strlen(str) - 1] == 'O')
+		return(ft_prnt_strjoin_smb(rez, '0'));	
+	else if (str[ft_strlen(str) - 1] == 'x' || str[ft_strlen(str) - 1] == 'X')
+		return(ft_prnt_addsharp(rez, 'x'));
+//	else if (str[ft_strlen(str) - 1] == 'x')
+//		*rez = ft_prnt_smsharp(*rez);
+//	else (str[ft_strlen(str) - 1] == 'X')
+//		*rez = ft_prnt_bgsharp(*rez);
+	return (NULL);
+}
+
 // x, X, o, O, p
 void	make_sharp_flag(char *str, char **rez)
 {
 	char *tmp;
 
 	tmp = *rez;
-	if (str[ft_strlen(str) - 1] == 'x')
-		*rez = ft_prnt_smsharp(*rez);
-	else if (str[ft_strlen(str) - 1] == 'X')
-		*rez = ft_prnt_bgsharp(*rez);
-	else if (str[ft_strlen(str) - 1] == 'o')
-		*rez = ft_prnt_strjoin_smb(*rez, '0');
-	else if (str[ft_strlen(str) - 1] == 'O')
-		*rez = ft_prnt_strjoin_smb(*rez, '0');
+	if ((*rez)[0] == '0' && (*rez)[1] != '\0' && (*rez)[1] != ' ')
+		*rez = make_sharpwith_zero(str, *rez);
+	else
+	{	
+		if (str[ft_strlen(str) - 1] == 'x')
+			*rez = ft_prnt_smsharp(*rez);
+		else if (str[ft_strlen(str) - 1] == 'X')
+			*rez = ft_prnt_bgsharp(*rez);
+		else if (str[ft_strlen(str) - 1] == 'o')
+			*rez = ft_prnt_strjoin_smb(*rez, '0');
+		else if (str[ft_strlen(str) - 1] == 'O')
+			*rez = ft_prnt_strjoin_smb(*rez, '0');
+	}	
 	free(tmp);
 }
 // [-] [+] [ ] [#] [0]

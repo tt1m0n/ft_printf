@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static char	*ft_ret_zero(const char *str)
 {
@@ -20,11 +21,14 @@ static char	*ft_ret_zero(const char *str)
 	i = 0;
 	if (!(p = (char*)malloc(sizeof(char) * ft_strlen(str) + 1)))
 		return (NULL);
-	while (str[i] != '\0')
-	{
-		p[i] = str[i];
-		i++;
-	}
+	if (str[i] == 0 && str[i + 1] == '\0')
+		p[i++] = '\0';
+	else
+		while (str[i] != '\0')
+		{
+			p[i] = str[i];
+			i++;
+		}
 	p[i] = '\0';
 	return (p);
 }
@@ -123,7 +127,7 @@ char		*ft_prnt_smsharp(const char *str)
 			smb++;
 		i++;
 	}
-	if (sign == 1)
+	if (sign == 1 || str[0] == '\0')
 		p = ft_ret_zero(str);
 	else if (ft_strlen(str) - (size_t)smb == 0 ||
 		ft_strlen(str) - (size_t)smb == 1)

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static char		*ft_prnt_add(char *p, char const *s, char c)
 {
@@ -41,17 +42,44 @@ static char		*ft_prnt_add(char *p, char const *s, char c)
 	return (p);
 }
 
+static char		*ft_add_zero(char *p, char const *s, char c)
+{
+	int i;
+
+	i = 0;
+	if (!(p = (char*)malloc(sizeof(char) * ft_strlen(s) + 1)))
+		return (NULL);
+	if (s[0] == '0' && s[ft_strlen(s) - 1] == ' ')
+	{	
+		p[0] = c;
+		while (s[i + 1] != '\0')
+		{	
+			p[i + 1] = s[i];
+			i++;
+		}	
+		p[i + 1] = '\0';
+	}
+	else
+	{	
+		while (s[i] != '\0')
+		{
+			p[i] = s[i];
+			i++;
+		}	
+		p[i] = '\0';	
+	}
+	return (p);
+}
+
 char			*ft_prnt_strjoin_smb(char const *s, char c)
 {
 	int		i;
-	int		count;
 	char	*p;
 
 	i = 0;
-	count = 0;
-	p = NULL;
-	if (((s[0] == '0') && s[1] == '\0') || s[0] == '\0' ||
- 		(ft_isdigit(s[0]) && ft_isdigit(s[ft_strlen(s) - 1])))
+	p = NULL; 
+	if (((s[0] == '0' && s[1] == '\0') || s[0] == '\0' ||
+		(ft_isdigit(s[0]) && ft_isdigit(s[ft_strlen(s) - 1]) && s[0] != '0')))
 	{
 		p = (char*)malloc(ft_strlen(s) + 2);
 		if (p == NULL)
@@ -61,6 +89,9 @@ char			*ft_prnt_strjoin_smb(char const *s, char c)
 			p[i++] = *(s++);
 		p[i] = '\0';
 	}
+	else if ((s[0] == '0' && s[1] != '\0' && s[1] != ' ') ||
+		(s[ft_strlen(s) - 1] == '0' && s[ft_strlen(s) - 2] == ' '))
+		p = ft_add_zero(p, s, c);
 	else
 		p = ft_prnt_add(p, s, c);
 	return (p);

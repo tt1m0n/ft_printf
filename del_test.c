@@ -83,6 +83,7 @@ int main ()
     	1. indicates that conversion argument has type intmax_t or uintmax_t;
     [z]
     	1. indicates that conversion argument has type size_t
+    	j > z > ll > l > h > hh
 
     5. CONVERSION LETTER 
     [c]
