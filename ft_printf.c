@@ -125,21 +125,68 @@ void	size_spec_z(char *str, char **rez, va_list ap)
 		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 1);
 }
 
+int use_ss_long(char *str, char **rez, va_list ap, char *p)
+{
+	if (p[0] == '1')
+	{	
+		size_spec_j(str, rez, ap);
+		return (1);
+	}	
+	if (p[1] == '1')
+	{	
+		size_spec_j(str, rez, ap);
+		return (1);
+	}	
+	if (p[2] == '1')
+	{	
+		size_spec_ll(str, rez, ap);
+		return (1);
+	}
+	return (0);	
+}
+
+void	use_ss_short(char *str, char **rez, va_list ap, char *p)
+{
+	if (p[3] == '1')
+	{	
+		size_spec_l(str, rez, ap);
+		return ;
+	}	
+	if (p[5] == '1' && p[4] == '0')
+	{	
+		size_spec_h(str, rez, ap);
+		return ;
+	}	
+	if (p[4] == '1')
+	{	
+		size_spec_hh(str, rez, ap);
+		return ;
+	}
+}
+
 void	check_size_spec(char *str, char **rez, va_list ap)
 {
-	if (ft_prnt_strstr(str, "hh"))
-		size_spec_hh(str, rez, ap);
-	else if (ft_prnt_strstr(str, "ll"))
-		size_spec_ll(str, rez, ap);
-	else if (ft_prnt_strstr(str, "h"))
-		size_spec_h(str, rez, ap);
-	else if (ft_prnt_strstr(str, "l"))
-		size_spec_l(str, rez, ap);
-	else if (ft_prnt_strstr(str, "j"))
-		size_spec_j(str, rez, ap);
+	char *p;
+
+	p = ft_prnt_memalloc(6);
+	if (ft_prnt_strstr(str, "j"))
+		p[0] = '1';
 	else if (ft_prnt_strstr(str, "z"))
-		size_spec_z(str, rez, ap);	
-}
+		p[1] = '1';
+	else if (ft_prnt_strstr(str, "ll"))
+		p[2] = '1';
+	else if (ft_prnt_strstr(str, "l"))
+		p[3] = '1';
+	else if (ft_prnt_strstr(str, "hh"))
+		p[4] = '1';
+	else if (ft_prnt_strstr(str, "h"))
+		p[5] = '1';
+
+	if (use_ss_long(str, rez, ap, p) == 0)
+		use_ss_short(str, rez, ap, p);
+	ft_strclr(p);
+	free(p);
+}	
 
 void	make_precision(char *str, char **rez, int lenprsn)
 {
@@ -418,7 +465,7 @@ void	conv_d_i(char *str, char **rez, va_list ap)
 {
 	check_size_spec(str, rez, ap);
 	if (*rez == NULL && str[ft_strlen(str) - 1] != 'D')
-		*rez = ft_itoa(va_arg(ap, int));		
+		*rez = ft_itoa(va_arg(ap, int));	
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'D')
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
 	check_precision(str, rez);
