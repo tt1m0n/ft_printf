@@ -73,6 +73,7 @@ void	size_spec_h(char *str, char **rez, va_list ap)
 void	size_spec_l(char *str, char **rez, va_list ap)
 {
 	int i;
+
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i')// D?
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
@@ -256,8 +257,10 @@ void	check_precision(char *str, char **rez)
 			str[ft_strlen(str) - 1] != 's')
 			make_precision(str, rez, prsn - ft_strlen(*rez) + 1);
 		if (((size_t)prsn < ft_strlen(*rez)) && str[ft_strlen(str) - 1] == 's' &&
-			prsn != 0)	
+			prsn != 0)
+		{	
 			make_precision_str(rez, prsn);
+		}	
 	}	
 }
 
@@ -318,7 +321,6 @@ void	make_minus_flag(char **rez)
 {
 	char *tmp;
 
-//	if (str[ft_strlen(str) - 1] != 's' && str[ft_strlen(str) - 1] != 'S')
 	if((*rez)[0] == ' ')
 	{
 		tmp = *rez;
@@ -496,6 +498,69 @@ char	*add_percent()
 	return (p);
 }
 
+void	print_2_byte(int mask1, int n, char **rez)
+{
+	if (!(*rez = (char*)malloc(sizeof(char) * 3)))
+		return ;
+	(*rez)[0] = mask1>>8|n>>6;
+	(*rez)[1] = (n&63)|128;
+	(*rez)[2] = '\0';
+}
+
+void	print_3_byte(int mask2, int n, char **rez)
+{
+	if (!(*rez = (char*)malloc(sizeof(char) * 4)))
+		return ;
+	(*rez)[0] = mask2>>16|n>>12;
+	(*rez)[1] = ((n>>6)&63)|128;
+	(*rez)[2] = (n&63)|128;
+	(*rez)[3] = '\0';
+}
+
+void	print_4_byte(int mask3, int n, char **rez)
+{
+	if (!(*rez = (char*)malloc(sizeof(char) * 4)))
+		return ;
+	(*rez)[0] = mask3>>24|n>>18;
+	(*rez)[1] = ((n>>12)&63)|128;
+	(*rez)[2] = ((n>>6)&63)|128;
+	(*rez)[3] = (n&63)|128;
+	(*rez)[4] = '\0';
+}
+
+void	print_unicode(unsigned int n, char **rez)
+{
+    unsigned int mask1 = 49280;
+    unsigned int mask2 = 14712960;
+  	unsigned int mask3 = 4034953344;
+
+    if (n <= 127)
+    {	
+    	if (!(*rez = (char*)malloc(sizeof(char) * 2)))
+    		return ;
+    	(*rez)[0] = n;
+    	(*rez)[1] = '\0';
+    }
+	else if (n > 127 && n <= 2047)
+		print_2_byte(mask1, n, rez);
+ 	else if (n > 2047 && n <= 65535)
+ 		print_3_byte(mask2, n, rez);
+    else
+    	print_4_byte(mask3, n, rez);
+}
+
+void	check_c_conv(char *str, char **rez, va_list ap)
+{
+	if (ft_prnt_strstr(str, "l"))
+		print_unicode((unsigned int)va_arg(ap, void*), rez);
+	else
+	{	
+		*rez = (char*)malloc(sizeof(char) * 2);
+		(*rez)[0] = (char)va_arg(ap, void*);
+		(*rez)[1] = '\0';
+	}	
+}
+
 void	conv_ox(char *str, char **rez, va_list ap)
 {
 	check_size_spec(str, rez, ap);
@@ -510,11 +575,7 @@ void	conv_ox(char *str, char **rez, va_list ap)
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == '%')
 		*rez = add_percent();
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'c')
-	{	
-		*rez = (char*)malloc(sizeof(char) * 2);
-		(*rez)[0] = (char)va_arg(ap, void*);
-		(*rez)[1] = '\0';
-	}
+		check_c_conv(str, rez, ap);
 	check_precision(str, rez);
 	check_min_width(str, rez);
 	check_flags(str, rez);
@@ -590,10 +651,10 @@ int	check_octhex_conv(char *str, va_list ap)
 
 char *write_string(va_list ap)
 {
-	char *p;
+	char *p = NULL;
 	char *str;
 
-	p = ft_memalloc(1000);
+	p = ft_memalloc(1000000);
 	p = ft_strcpy(p, va_arg(ap, char*));
 	if (p == NULL)
 		return (NULL);
@@ -603,20 +664,70 @@ char *write_string(va_list ap)
 	return (str);
 }
 
+unsigned int *ft_intcpy(unsigned int *p, unsigned int *arr)
+{
+	int i;
+
+	i = 0;
+	while (arr[i] != 0)
+	{	
+		p[i] = arr[i];
+		i++;
+	}	
+	p[i] = 0;
+	return (p);
+}
+
+void	read_unicode_string(char **rez, va_list ap)
+{
+	unsigned int *p;
+	int i;
+	char *tmp;
+	char *del;
+
+	i = 0;
+	if (!(p = (unsigned int*)malloc(sizeof(int) * 1000000)))
+		return ;
+	p = ft_intcpy(p, (unsigned int*)va_arg(ap, void*));
+	i = 0;
+	while (p[i] != 0)
+	{
+		del = *rez;
+		print_unicode(p[i], &tmp);
+		if (*rez == NULL)
+		{
+			*rez = ft_memalloc(ft_strlen(tmp) + 1);
+			*rez = ft_strcpy(*rez, tmp);
+		}
+		else
+			*rez = ft_strjoin(*rez, tmp);
+		free(tmp);
+		if (del != NULL)
+			free(del);
+		i++;
+	}
+	free(p);
+}
+
 int check_s_conv(char *str, va_list ap)
 {
 	int len;
 	char *rez;
 
-	if (!(rez = write_string(ap)))
+	rez = NULL;
+	if (ft_prnt_strstr(str, "l"))
+		read_unicode_string(&rez, ap);
+	else 
 	{
-		ft_putstr("(null)");	
-		return (6);
-	}	
+		if (!(rez = write_string(ap)))
+		{	
+			ft_putstr("(null)");	
+			return (6);
+		}	
+	}
 	check_precision(str, &rez);
 	check_min_width(str, &rez);
 	check_flags(str, &rez);
-
 	ft_putstr(rez);
 	len = ft_strlen(rez);
 	ft_strclr(rez);
@@ -637,7 +748,7 @@ int	ft_printf(const char *format, ...)
 	j = 0;
 	ret = 0;
 	if (!(mainstr = ft_memalloc(50)))
-		return 0;
+		return (0);
 	va_start(ap, format);
 	while (format[i] != '\0')
 	{

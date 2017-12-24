@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <limits.h>
+//#include <limits.h>
+#include <locale.h>
 
 int main ()
 {
@@ -134,6 +135,17 @@ int main ()
 	// l/d = −9 223 372 036 854 775 807, 9 223 372 036 854 775 807	
 	// flags: [-] [+] [0]
 	// 1. if flags +- or -+ like +
+
+ 
+    //int c;
+    char* l = setlocale(LC_ALL, "");
+    if (l == NULL) {
+        printf("Locale not set\n");
+    } else {
+        printf("Locale set to %s\n", l);
+    }
+    printf("%ls\n", L"s:\\яшертыHello");
+
 /*
 	printf("(d)       - [%d]         [%d]\n", 45, -45);
 	printf("(1d)      - [%1d]        [%1d]\n", 45, -45);
@@ -201,7 +213,7 @@ int main ()
 	// l/x or l/X = unsigned long(18 446 744 073 709 551 615)
 	// flags: [-] [#] [0]
 	// value to hex (16)
-
+/*
 	printf("(x)       - [%x]         [%x]\n", 45, -45);
 	printf("(14x)     - [%14x]       [%14x]\n", 45, -45);
 	printf("(014x)    - [%014x]      [%014x]\n", 45, -45);
@@ -212,7 +224,6 @@ int main ()
 	printf("(14.20x)  - [%14.20x]    [%14.20x]\n", 45, -45);
 	printf("(-#14.4x) - [%-#14.4x]   [%-#14.4x]\n\n\n", 45, -45);	
 
-/*	//X
 	printf("(X)       - [%X]         [%X]\n", 45, -45);
 	printf("(14X)     - [%14X]       [%14X]\n", 45, -45);
 	printf("(014X)    - [%014X]      [%014X]\n", 45, -45);
