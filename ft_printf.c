@@ -395,10 +395,6 @@ char *make_sharpwith_zero(char *str, char *rez)
 		return(ft_prnt_strjoin_smb(rez, '0'));	
 	else if (str[ft_strlen(str) - 1] == 'x' || str[ft_strlen(str) - 1] == 'X')
 		return(ft_prnt_addsharp(rez, 'x'));
-//	else if (str[ft_strlen(str) - 1] == 'x')
-//		*rez = ft_prnt_smsharp(*rez);
-//	else (str[ft_strlen(str) - 1] == 'X')
-//		*rez = ft_prnt_bgsharp(*rez);
 	return (NULL);
 }
 
@@ -431,32 +427,27 @@ void	check_flags(char *str, char **rez)
 	int i;
 
 	i = 0;
-	while (str[i] != '.' && !(ft_isalpha(str[i]))\
-		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
+	while (str[i] != '\0')
 		if (str[i++] == '-')
 			make_minus_flag(rez);
 	i = 0;
-	while (str[i] != '.' && !(ft_isalpha(str[i]))\
-		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
+	while (str[i] != '\0')
 		if (str[i++] == '+' && (str[ft_strlen(str) - 1] == 'd' ||
 			str[ft_strlen(str) - 1] == 'D' || str[ft_strlen(str) - 1] == 'i'))
 			make_plus_flag(rez);
 	i = 0;
 	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
-		if (str[i++] == '0' && str[ft_strlen(str) - 1] != 'c' &&
-			str[ft_strlen(str) - 1] != 'C' && str[ft_strlen(str) - 1] != 's' &&
+		if (str[i++] == '0' && str[ft_strlen(str) - 1] != 'C' &&
 			str[ft_strlen(str) - 1] != 'S' && str[ft_strlen(str) - 1] != 'p')
 			make_zero_flag(str, rez);
 	i = 0;
-	while (str[i] != '.' && !(ft_isalpha(str[i]))\
-		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
+	while (str[i] != '\0')
 		if (str[i++] == ' ' && (str[ft_strlen(str) - 1] == 'd' ||
 			str[ft_strlen(str) - 1] == 'D' || str[ft_strlen(str) - 1] == 'i'))
 			make_space_flag(str, rez);
 	i = 0;
-	while (str[i] != '.' && !(ft_isalpha(str[i]))\
-		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
+	while (str[i] != '\0')
 		if (str[i++] == '#' && (str[ft_strlen(str) - 1] == 'o' ||
 			str[ft_strlen(str) - 1] == 'O' || str[ft_strlen(str) - 1] == 'x' ||
 			str[ft_strlen(str) - 1] == 'X'))
@@ -740,7 +731,16 @@ int check_s_conv(char *str, va_list ap)
 	return (len);
 }
 
-int check_alpha(char )
+int check_alpha(char c)
+{
+	if (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'U' || c == 'o' ||
+		c == 'O' || c == 'x' || c == 'X' || c == 'p' || c == '%' || c == 'c' ||
+		c == 'C' || c == 's' || c == 'S')
+		return (0);
+	if (c == 'h' || c == 'l' || c == 'j' || c == 'z')
+		return (0);
+	return (1);
+}
 
 int	ft_printf(const char *format, ...)
 {
@@ -787,12 +787,14 @@ int	ft_printf(const char *format, ...)
 					sign = 0;
 					ret = ret + check_s_conv(mainstr, ap);
 				}
-				if (check_alpha(format[i]))
-					break ;
-				else	
-					mainstr[j] = format[i];
+				if (ft_isalpha(format[i]))
+				{	
+					if (check_alpha(format[i]))
+						break ;
+				}
+				mainstr[j] = format[i];
 				i++;
-				j++;
+				j++;	
 			}
 		ft_strclr(mainstr);
 		}

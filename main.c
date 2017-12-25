@@ -8,11 +8,9 @@
 //	char *l;
 //	l = setlocale(LC_ALL, "");
 
-	int a = 8;
-	int *b = &a;
 
-	 printf("or %0-+hZd\n");
-	 ft_printf("my %Z\n");
+	printf("or [%010s]\n is a string", "this");
+	ft_printf("my [%010s]\n is a string", "this");
 //	printf ("%d\n", 1/2);
 //	system ("leaks printf");
 
