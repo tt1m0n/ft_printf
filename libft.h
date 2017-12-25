@@ -16,6 +16,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 # define SPACES ((s[i] == ' ') || (s[i] == '\t') || (s[i] == '\n'))
 # define NOTSPACES (s[i] != ' ') && (s[i] != '\t') && (s[i] != '\n')

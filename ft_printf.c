@@ -10,17 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h> // for intmax_t, uintmax_t
-#include <stdarg.h>
-#include <stdio.h>
-
 #include "libft.h"
 
 void	size_spec_hh(char *str, char **rez, va_list ap)
 {
 	int i;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i') // D?
+	if (str[i] == 'd' || str[i] == 'i')
 		*rez = ft_itoa((char)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_itoa((unsigned char)va_arg(ap, void*));
@@ -38,7 +34,7 @@ void	size_spec_ll(char *str, char **rez, va_list ap)
 {
 	int i;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i') // D?
+	if (str[i] == 'd' || str[i] == 'i')
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
@@ -56,7 +52,7 @@ void	size_spec_h(char *str, char **rez, va_list ap)
 {
 	int i;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i') // D?
+	if (str[i] == 'd' || str[i] == 'i')
 		*rez = ft_prnt_itoas((short)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoaus((unsigned short)va_arg(ap, void*));
@@ -75,7 +71,7 @@ void	size_spec_l(char *str, char **rez, va_list ap)
 	int i;
 
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i')// D?
+	if (str[i] == 'd' || str[i] == 'i')
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
@@ -92,8 +88,9 @@ void	size_spec_l(char *str, char **rez, va_list ap)
 void	size_spec_j(char *str, char **rez, va_list ap)
 {
 	int i;
+
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'd' || str[i] == 'i') // D?
+	if (str[i] == 'd' || str[i] == 'i')
 		*rez = ft_prnt_itoa_intmax((intmax_t)va_arg(ap, void*));
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoa_uintmax((uintmax_t)va_arg(ap, void*));
@@ -105,16 +102,16 @@ void	size_spec_j(char *str, char **rez, va_list ap)
 		*rez = ft_prnt_itoauimax_octhex((uintmax_t)va_arg(ap, void*), 8, 1);
 	else if (str[i] == 'X')
 		*rez = ft_prnt_itoauimax_octhex((uintmax_t)va_arg(ap, void*), 16, 1);
-
 }
 
 void	size_spec_z(char *str, char **rez, va_list ap)
 {
 	int i;
+
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i')
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
-	else if (str[i] == 'u') // D?
+	else if (str[i] == 'u')
 		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
 	else if (str[i] == 'o')
 		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 0);
@@ -126,20 +123,20 @@ void	size_spec_z(char *str, char **rez, va_list ap)
 		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 1);
 }
 
-int use_ss_long(char *str, char **rez, va_list ap, char *p)
+int		use_ss_long(char *str, char **rez, va_list ap, char *p)
 {
 	if (p[0] == '1')
-	{	
+	{
 		size_spec_j(str, rez, ap);
 		return (1);
-	}	
+	}
 	if (p[1] == '1')
-	{	
+	{
 		size_spec_j(str, rez, ap);
 		return (1);
-	}	
+	}
 	if (p[2] == '1')
-	{	
+	{
 		size_spec_ll(str, rez, ap);
 		return (1);
 	}
@@ -149,17 +146,17 @@ int use_ss_long(char *str, char **rez, va_list ap, char *p)
 void	use_ss_short(char *str, char **rez, va_list ap, char *p)
 {
 	if (p[3] == '1')
-	{	
+	{
 		size_spec_l(str, rez, ap);
 		return ;
-	}	
+	}
 	if (p[5] == '1' && p[4] == '0')
-	{	
+	{
 		size_spec_h(str, rez, ap);
 		return ;
-	}	
+	}
 	if (p[4] == '1')
-	{	
+	{
 		size_spec_hh(str, rez, ap);
 		return ;
 	}
@@ -204,17 +201,17 @@ int check_char(char c)
 
 void	make_precision(char *str, char **rez, int lenprsn)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	tmp = *rez;
 	i = ft_strlen(str) - 1;
 	if (str[i] != 'c' && str[i] != 'C' && str[i] != '%')
-	{	
+	{
 		*rez = ft_prnt_strjoin_prsn(lenprsn, *rez);
-		free (tmp);
+		free(tmp);
 	}
-}	
+}
 
 void	make_precision_str(char **rez, int len)
 {
@@ -256,23 +253,27 @@ int  	count_precision(char *str, char *rez)
 
 void	check_precision(char *str, char **rez)
 {
-	int prsn;
+	int		prsn;
+	size_t	lenrez;
+	size_t	lenstr;
 
+	lenrez = ft_strlen(*rez);
+	lenstr = ft_strlen(str) - 1;
 	prsn = count_precision(str, *rez);
 	if (prsn == -1)
 		(*rez)[0] = '\0';
 	else
 	{
-		if (((size_t)prsn > ft_strlen(*rez)) && (*rez)[0] != '-' &&
-			str[ft_strlen(str) - 1] != 's')
-			make_precision(str, rez, prsn - ft_strlen(*rez));
-		if ((*rez)[0] == '-' && (size_t)prsn > ft_strlen(*rez) - 1 &&
-			str[ft_strlen(str) - 1] != 's')
-			make_precision(str, rez, prsn - ft_strlen(*rez) + 1);
-		if (((size_t)prsn < ft_strlen(*rez)) && (str[ft_strlen(str) - 1] == 's' || 
-			str[ft_strlen(str) - 1] == 'S') && prsn != 0)
+		if (((size_t)prsn > lenrez) && (*rez)[0] != '-' &&
+			str[lenstr] != 's')
+			make_precision(str, rez, prsn - lenrez);
+		if ((*rez)[0] == '-' && (size_t)prsn > lenrez - 1 &&
+			str[lenstr] != 's')
+			make_precision(str, rez, prsn - lenrez + 1);
+		if (((size_t)prsn < lenrez) && (str[lenstr] == 's' ||
+			str[lenstr] == 'S') && prsn != 0)
 			make_precision_str(rez, prsn);
-	}	
+	}
 }
 
 void	make_width(char **rez, int lenwidth)
@@ -286,10 +287,10 @@ void	make_width(char **rez, int lenwidth)
 
 int 	count_min_width(char *str)
 {
-	int i;
-	int j;
-	int wd;
-	char width[11];
+	int		i;
+	int		j;
+	int		wd;
+	char	width[11];
 
 	i = 0;
 	j = 0;
@@ -303,7 +304,7 @@ int 	count_min_width(char *str)
 			width[j] = '\0';
 			break;
 		}
-		i++;	
+		i++;
 	}
 	wd = ft_atoi(width);
 	return (wd);
@@ -311,30 +312,30 @@ int 	count_min_width(char *str)
 
 void	check_min_width(char *str, char **rez)
 {
-	int wd;
-	int i;
-	
+	int		wd;
+	int		i;
+	size_t	len;
+
 	i = 0;
+	len = ft_strlen(str) - 1;
 	wd = count_min_width(str);
 	if (*rez == NULL)
-	{	
+	{
 		*rez = ft_memalloc(10);
 		while (i < wd - 1)
 			(*rez)[i++] = ' ';
 		return ;
 	}
 	if ((size_t)wd > ft_strlen(*rez))
-	{	
+	{
 		if ((*rez)[0] == '\0' && str[ft_strlen(str) - 1] != 's' &&
-			str[ft_strlen(str) - 1] != 'x' && str[ft_strlen(str) - 1] != 'X' &&
-			str[ft_strlen(str) - 1] != 'o' && str[ft_strlen(str) - 1] != 'O' &&
-			str[ft_strlen(str) - 1] != 'd' && str[ft_strlen(str) - 1] != 'D' &&
-			str[ft_strlen(str) - 1] != 'i' && str[ft_strlen(str) - 1] != 'u' &&
-			str[ft_strlen(str) - 1] != 'U' && str[ft_strlen(str) - 1] != 'S')
+			str[len] != 'x' && str[len] != 'X' && str[len] != 'o' && str[len] != 'O' &&
+			str[len] != 'd' && str[len] != 'D' && str[len] != 'i' && str[len] != 'u' &&
+			str[len] != 'U' && str[len] != 'S')
 			make_width(rez, wd - 1 - ft_strlen(*rez));
 		else
 			make_width(rez, wd - ft_strlen(*rez));
-	}	
+	}
 }
 
 void	make_minus_flag(char **rez)
@@ -351,8 +352,8 @@ void	make_minus_flag(char **rez)
 
 void	make_plus_flag(char **rez)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while ((*rez)[i] == ' ')
@@ -367,16 +368,17 @@ void	make_plus_flag(char **rez)
 
 void	make_zero_flag(char *str, char **rez)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
+	size_t	len;
 
 	i = 0;
 	tmp = *rez;
+	len = ft_strlen(str) - 1;
 	while (str[i] != '\0')
-	{	
-		if ((str[i] == '.' || str[i] == '-') && str[ft_strlen(str) - 1] != 'c' &&
-		str[ft_strlen(str) - 1] != 's' && str[ft_strlen(str) - 1] != '%' &&
-		(check_char(str[ft_strlen(str) - 1]) == 0) && str[ft_strlen(str) - 1] != 'S')
+	{
+		if ((str[i] == '.' || str[i] == '-') && str[len] != 'c' && str[len] != 's' &&
+			str[len] != '%' && (check_char(str[len]) == 0) && str[len] != 'S')
 			return ;
 		i++;
 	}
@@ -384,98 +386,104 @@ void	make_zero_flag(char *str, char **rez)
 	{
 		*rez = ft_prnt_add_zero(*rez);
 		free(tmp);
-	}	
+	}
 }
 
 void	make_space_flag(char *str, char **rez)
 {
 	int		i;
 	char	*tmp;
+	size_t	len;
 
 	i = 0;
 	tmp = *rez;
+	len = ft_strlen(*rez) - 1;
 	while (str[i] != '\0')
 		if ((str[i++] == '+') || (*rez)[0] == ' ') 
 			return ;
 	i = 0;
 	while ((*rez)[i] != '\0')
 		if ((*rez)[i++] == '-')
-			return ;		
-	if (ft_isdigit((*rez)[0]) && (*rez)[ft_strlen(*rez) - 1] != ' ' && (*rez)[0] != '0')
+			return ;
+	if (ft_isdigit((*rez)[0]) && (*rez)[len] != ' ' && (*rez)[0] != '0')
 	{
 		*rez = ft_strjoin(" ", *rez);
 		free(tmp);
 	}
-	if (ft_isdigit((*rez)[0]) && ((*rez)[ft_strlen(*rez) - 1] == ' ' || (*rez)[0] == '0'))
-	{ 
+	if (ft_isdigit((*rez)[0]) && ((*rez)[len] == ' ' || (*rez)[0] == '0'))
+	{
 		*rez = ft_prnt_space_flag(*rez);
 		free(tmp);
-	}	
+	}
 }
 
 char *make_sharpwith_zero(char *str, char *rez)
 {
-	if (str[ft_strlen(str) - 1] == 'o' || str[ft_strlen(str) - 1] == 'O')
-		return(ft_prnt_strjoin_smb(rez, '0'));	
-	else if (str[ft_strlen(str) - 1] == 'x' || str[ft_strlen(str) - 1] == 'X' ||
-		str[ft_strlen(str) - 1] == 'p')
+	size_t	len;
+
+	len = ft_strlen(str) - 1;
+	if (str[len] == 'o' || str[len] == 'O')
+		return(ft_prnt_strjoin_smb(rez, '0'));
+	else if (str[len] == 'x' || str[len] == 'X' || str[len] == 'p')
 		return(ft_prnt_addsharp(rez, 'x'));
 	return (NULL);
 }
 
-// x, X, o, O, p
 void	make_sharp_flag(char *str, char **rez)
 {
-	char *tmp;
+	char	*tmp;
+	size_t	len;
 
 	tmp = *rez;
+	len = ft_strlen(str) - 1;
 	if ((*rez)[0] == '0' && (*rez)[1] != '\0' && (*rez)[1] != ' ' &&
 		(count_precision(str, *rez) == 0))
 		*rez = make_sharpwith_zero(str, *rez);
 	else
-	{	
+	{
 		if (str[ft_strlen(str) - 1] == 'x')
 			*rez = ft_prnt_smsharp(*rez);
-		else if (str[ft_strlen(str) - 1] == 'p')
+		else if (str[len] == 'p')
 			*rez = ft_prnt_sharp_p(*rez);	
-		else if (str[ft_strlen(str) - 1] == 'X')
+		else if (str[len] == 'X')
 			*rez = ft_prnt_bgsharp(*rez);
-		else if (str[ft_strlen(str) - 1] == 'o')
+		else if (str[len] == 'o')
 			*rez = ft_prnt_strjoin_smb(*rez, '0');
-		else if (str[ft_strlen(str) - 1] == 'O')
+		else if (str[len] == 'O')
 			*rez = ft_prnt_strjoin_smb(*rez, '0');
 	}
 	free(tmp);
 }
-// [-] [+] [ ] [#] [0]
+
 void	check_flags(char *str, char **rez)
 {
-	int i;
+	int		i;
+	size_t	len;
 
 	i = 0;
+	len = ft_strlen(str) - 1;
 	while (str[i] != '\0')
 		if (str[i++] == '-')
 			make_minus_flag(rez);
 	i = 0;
 	while (str[i] != '\0')
-		if (str[i++] == '+' && (str[ft_strlen(str) - 1] == 'd' ||
-			str[ft_strlen(str) - 1] == 'D' || str[ft_strlen(str) - 1] == 'i'))
+		if (str[i++] == '+' && (str[len] == 'd' ||
+			str[len] == 'D' || str[len] == 'i'))
 			make_plus_flag(rez);
 	i = 0;
 	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
-		if (str[i++] == '0' && str[ft_strlen(str) - 1] != 'C')
+		if (str[i++] == '0' && str[len] != 'C')
 			make_zero_flag(str, rez);
 	i = 0;
 	while (str[i] != '\0')
 		if (str[i++] == ' ' && (str[ft_strlen(str) - 1] == 'd' ||
-			str[ft_strlen(str) - 1] == 'D' || str[ft_strlen(str) - 1] == 'i'))
+			str[len] == 'D' || str[len] == 'i'))
 			make_space_flag(str, rez);
 	i = 0;
 	while (str[i] != '\0')
-		if (str[i++] == '#' && (str[ft_strlen(str) - 1] == 'o' ||
-			str[ft_strlen(str) - 1] == 'O' || str[ft_strlen(str) - 1] == 'x' ||
-			str[ft_strlen(str) - 1] == 'X'))
+		if (str[i++] == '#' && (str[len] == 'o' || str[len] == 'O' ||
+			str[len] == 'x' || str[len] == 'X'))
 			make_sharp_flag(str, rez);
 }
 
@@ -682,21 +690,17 @@ char *write_string(va_list ap)
 {
 	char *p;
 	char *tmp;
-	char *str;
+	int len;
 
-	if (!(p = (char*)malloc(sizeof(char) * 10000000)))
-		return (NULL);
-	tmp = p;
-	p = ft_strcpy(p, va_arg(ap, char*));
-	if (p == NULL)
-	{
-		free(tmp);	
-		return (NULL);
-	}	
-	str = (char*)malloc(sizeof(char) * ft_strlen(p) + 1);
-	ft_memcpy(str, p, ft_strlen(p) + 1);
-	free(p);
-	return (str);
+	p = NULL;
+	tmp = va_arg(ap, char*);
+	if (!tmp)
+		return (0);
+	len = ft_strlen(tmp);
+	if (!(p = (char*)malloc(sizeof(char) * len + 1)))
+		return (0);
+	ft_memcpy(p, tmp, len + 1);
+	return (p);
 }
 
 unsigned int *ft_intcpy(unsigned int *p, unsigned int *arr)
