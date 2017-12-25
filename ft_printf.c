@@ -306,7 +306,7 @@ int 	count_min_width(char *str)
 		i++;	
 	}
 	wd = ft_atoi(width);
-	return ((size_t)wd);
+	return (wd);
 }
 
 void	check_min_width(char *str, char **rez)
@@ -417,7 +417,8 @@ char *make_sharpwith_zero(char *str, char *rez)
 {
 	if (str[ft_strlen(str) - 1] == 'o' || str[ft_strlen(str) - 1] == 'O')
 		return(ft_prnt_strjoin_smb(rez, '0'));	
-	else if (str[ft_strlen(str) - 1] == 'x' || str[ft_strlen(str) - 1] == 'X')
+	else if (str[ft_strlen(str) - 1] == 'x' || str[ft_strlen(str) - 1] == 'X' ||
+		str[ft_strlen(str) - 1] == 'p')
 		return(ft_prnt_addsharp(rez, 'x'));
 	return (NULL);
 }
@@ -429,14 +430,14 @@ void	make_sharp_flag(char *str, char **rez)
 
 	tmp = *rez;
 	if ((*rez)[0] == '0' && (*rez)[1] != '\0' && (*rez)[1] != ' ' &&
-		str[ft_strlen(str) - 1] != 'p' && (count_precision(str, *rez) == 0))
+		(count_precision(str, *rez) == 0))
 		*rez = make_sharpwith_zero(str, *rez);
 	else
 	{	
 		if (str[ft_strlen(str) - 1] == 'x')
 			*rez = ft_prnt_smsharp(*rez);
 		else if (str[ft_strlen(str) - 1] == 'p')
-			*rez = ft_prnt_sharp_p(*rez);
+			*rez = ft_prnt_sharp_p(*rez);	
 		else if (str[ft_strlen(str) - 1] == 'X')
 			*rez = ft_prnt_bgsharp(*rez);
 		else if (str[ft_strlen(str) - 1] == 'o')
@@ -463,8 +464,7 @@ void	check_flags(char *str, char **rez)
 	i = 0;
 	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
-		if (str[i++] == '0' && str[ft_strlen(str) - 1] != 'C' &&
-			str[ft_strlen(str) - 1] != 'p')
+		if (str[i++] == '0' && str[ft_strlen(str) - 1] != 'C')
 			make_zero_flag(str, rez);
 	i = 0;
 	while (str[i] != '\0')
@@ -577,8 +577,11 @@ void	check_c_conv(char *str, char **rez, va_list ap)
 	}	
 }
 
-void	conv_ox(char *str, char **rez, va_list ap)
+char	conv_ox(char *str, char **rez, va_list ap)
 {
+	char c;
+
+	c = '\0';
 	check_size_spec(str, rez, ap);
 	if (*rez == NULL && str[ft_strlen(str) - 1] == 'o')
 		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 8, 0);
@@ -592,7 +595,10 @@ void	conv_ox(char *str, char **rez, va_list ap)
 		*rez = add_percent();
 	else if (*rez == NULL && (str[ft_strlen(str) - 1] == 'c' ||
 		str[ft_strlen(str) - 1] == 'C'))
+	{	
 		check_c_conv(str, rez, ap);
+		c = (*rez)[0];
+	}
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'p')
 		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
 	check_precision(str, rez);
@@ -600,6 +606,7 @@ void	conv_ox(char *str, char **rez, va_list ap)
 	check_flags(str, rez);
 	if (str[ft_strlen(str) - 1] == 'p')
 		make_sharp_flag(str, rez);
+	return (c);
 }
 
 // check d, D, i, u, U
@@ -624,14 +631,14 @@ int check_digit_conv(char *str, va_list ap)
 	return (len);
 }
 
-int	print_flag_c (char *rez)
+int	print_flag_c (char *rez, char c)
 {
 	int i;
 
 	i = 0;
 	while (rez[i] != '\0')
 	{	
-		if (rez[i] != ' ' && rez[i] != '0')
+		if ((rez[i] != ' ' && rez[i] != '0') || c != 0)
 		{	
 			ft_putstr(rez);
 			return (0);
@@ -653,15 +660,16 @@ int	check_octhex_conv(char *str, va_list ap)
 	int i;
 	int len;
 	char *rez;
+	char c;
 
 	rez = NULL;
 	len = 0;
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'o' || str[i] == 'O' || str[i] == 'x' || str[i] == 'p' ||
 		str[i] == 'X' || str[i] == '%' || str[i] == 'c' || str[i] == 'C')
-		conv_ox(str, &rez, ap);
+		c = conv_ox(str, &rez, ap);
 	if (str[i] == 'c' || str[i] == 'C')
-		len = print_flag_c(rez);
+		len = print_flag_c(rez, c);
 	else
 		ft_putstr(rez);
 	len = len + ft_strlen(rez);
