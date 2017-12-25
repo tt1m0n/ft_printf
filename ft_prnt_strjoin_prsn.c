@@ -29,7 +29,7 @@ char	*ft_prnt_strjoin_prsn(int len, char const *s2)
 			p[i++] = *(s2++);
 		p[i] = '\0';
 	}
-	else if (s2[i] == '-')
+	if (s2[i] == '-')
 	{
 		p[0] = '-';
 		while (len-- > 0)

@@ -32,7 +32,7 @@ SRC = ft_printf.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c\
 	  ft_prnt_space_flag.c ft_printf.c ft_prnt_itoaui.c ft_prnt_itoaui_octhex.c\
 	  ft_prnt_itoaus_octhex.c ft_prnt_itoaull_octhex.c ft_prnt_itoauimax_octhex.c\
 	  ft_prnt_smsharp.c ft_prnt_bgsharp.c ft_prnt_prs_str.c ft_prnt_addsharp.c\
-	  ft_prnt_memmaloc.c
+	  ft_prnt_memmaloc.c ft_prnt_sharp_p.c
 
 OBJ	= $(SRC:.c=.o)
 

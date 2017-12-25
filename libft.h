@@ -63,6 +63,7 @@ char				*ft_prnt_bgsharp(const char *str);
 char				*ft_prnt_prs_str(int len, char const *str);
 char				*ft_prnt_addsharp(char const *s, char c);
 void				*ft_prnt_memalloc(size_t size);
+char				*ft_prnt_sharp_p(const char *str);
 
 
 void				*ft_memset(void *b, int c, size_t len);

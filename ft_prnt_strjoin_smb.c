@@ -42,11 +42,8 @@ static char		*ft_prnt_add(char *p, char const *s, char c)
 	return (p);
 }
 
-static char		*ft_add_zero(char *p, char const *s, char c)
+static char		*ft_add_zero(char *p, char const *s, char c, int i)
 {
-	int i;
-
-	i = 0;
 	if (!(p = (char*)malloc(sizeof(char) * ft_strlen(s) + 1)))
 		return (NULL);
 	if (s[0] == '0' && s[ft_strlen(s) - 1] == ' ')
@@ -63,6 +60,9 @@ static char		*ft_add_zero(char *p, char const *s, char c)
 	{	
 		while (s[i] != '\0')
 		{
+			if (s[i] == ' ' && s[i + 1] == '0')
+				if (c != '0')
+					p[i++] = c;
 			p[i] = s[i];
 			i++;
 		}	
@@ -77,7 +77,7 @@ char			*ft_prnt_strjoin_smb(char const *s, char c)
 	char	*p;
 
 	i = 0;
-	p = NULL; 
+	p = NULL;
 	if (((s[0] == '0' && s[1] == '\0') || s[0] == '\0' ||
 		(ft_isdigit(s[0]) && ft_isdigit(s[ft_strlen(s) - 1]) && s[0] != '0')))
 	{
@@ -85,13 +85,13 @@ char			*ft_prnt_strjoin_smb(char const *s, char c)
 		if (p == NULL)
 			return (NULL);
 		p[i++] = c;
-		while (*s != '\0')
+		while (*s != '\0' && (c != '0' || s[0] != '0'))
 			p[i++] = *(s++);
 		p[i] = '\0';
 	}
 	else if ((s[0] == '0' && s[1] != '\0' && s[1] != ' ') ||
 		(s[ft_strlen(s) - 1] == '0' && s[ft_strlen(s) - 2] == ' '))
-		p = ft_add_zero(p, s, c);
+		p = ft_add_zero(p, s, c, 0);
 	else
 		p = ft_prnt_add(p, s, c);
 	return (p);
