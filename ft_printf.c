@@ -216,28 +216,28 @@ int  	count_precision(char *str, char *rez)
 {
 	int i;
 	int j;
-	char precision[100];
+	char precision[20];
 
-	i = 0;
+	i = -1;
 	j = 0;
-	while (str[i] != '\0')
-	{
+	while (str[++i] != '\0')
 		if (str[i] == '.')
 		{
 			i++;
-			if (str[i - 1] == '.' && (str[i] == '0' || ft_isalpha(str[i])) && rez[0] == '0')
+			if (str[i - 1] == '.' && ((str[i] == '0' || ft_isalpha(str[i])) && rez[0] == '0'))
 				return (-1);
 			if (str[i - 1] == '.' && (str[i] == '0' || ft_isalpha(str[i])) &&
 				(rez[0] == '+' || rez[0] == '-'))
 				if (rez[1] == '0')
 					return (-1);
+			if (str[i - 1] == '.' && !ft_isdigit(str[i]) &&
+				(str[ft_strlen(str) - 1] == 's' || str[ft_strlen(str) - 1] == 'S'))
+				return (-1);
 			while (ft_isdigit(str[i]))
 				precision[j++] = str[i++];
 			precision[j] = '\0';
 			return (ft_atoi(precision));
 		}
-		i++;
-	}
 	return (0);
 }
 
@@ -249,18 +249,16 @@ void	check_precision(char *str, char **rez)
 	if (prsn == -1)
 		(*rez)[0] = '\0';
 	else
-	{	
+	{
 		if (((size_t)prsn > ft_strlen(*rez)) && (*rez)[0] != '-' &&
 			str[ft_strlen(str) - 1] != 's')
 			make_precision(str, rez, prsn - ft_strlen(*rez));	
 		if ((*rez)[0] == '-' && (size_t)prsn > ft_strlen(*rez) - 1 &&
 			str[ft_strlen(str) - 1] != 's')
 			make_precision(str, rez, prsn - ft_strlen(*rez) + 1);
-		if (((size_t)prsn < ft_strlen(*rez)) && str[ft_strlen(str) - 1] == 's' &&
-			prsn != 0)
-		{	
+		if (((size_t)prsn < ft_strlen(*rez)) && (str[ft_strlen(str) - 1] == 's' || 
+			str[ft_strlen(str) - 1] == 'S') && prsn != 0)
 			make_precision_str(rez, prsn);
-		}	
 	}	
 }
 
@@ -416,6 +414,8 @@ void	make_sharp_flag(char *str, char **rez)
 	{	
 		if (str[ft_strlen(str) - 1] == 'x')
 			*rez = ft_prnt_smsharp(*rez);
+		else if (str[ft_strlen(str) - 1] == 'p')
+			*rez = ft_prnt_smsharp(*rez);
 		else if (str[ft_strlen(str) - 1] == 'X')
 			*rez = ft_prnt_bgsharp(*rez);
 		else if (str[ft_strlen(str) - 1] == 'o')
@@ -551,7 +551,7 @@ void	print_unicode(unsigned int n, char **rez)
 
 void	check_c_conv(char *str, char **rez, va_list ap)
 {
-	if (ft_prnt_strstr(str, "l"))
+	if (ft_prnt_strstr(str, "l") || str[ft_strlen(str) - 1] == 'C')
 		print_unicode((unsigned int)va_arg(ap, void*), rez);
 	else
 	{	
@@ -574,11 +574,16 @@ void	conv_ox(char *str, char **rez, va_list ap)
 		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 1);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == '%')
 		*rez = add_percent();
-	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'c')
+	else if (*rez == NULL && (str[ft_strlen(str) - 1] == 'c' ||
+		str[ft_strlen(str) - 1] == 'C'))
 		check_c_conv(str, rez, ap);
+	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'p')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
 	check_precision(str, rez);
 	check_min_width(str, rez);
 	check_flags(str, rez);
+	if (str[ft_strlen(str) - 1] == 'p')
+		make_sharp_flag(str, rez);
 }
 
 // check d, D, i, u, U
@@ -636,8 +641,8 @@ int	check_octhex_conv(char *str, va_list ap)
 	rez = NULL;
 	len = 0;
 	i = ft_strlen(str) - 1;
-	if (str[i] == 'o' || str[i] == 'O' || str[i] == 'x' ||
-		str[i] == 'X' || str[i] == '%' || str[i] == 'c')
+	if (str[i] == 'o' || str[i] == 'O' || str[i] == 'x' || str[i] == 'p' ||
+		str[i] == 'X' || str[i] == '%' || str[i] == 'c' || str[i] == 'C')
 		conv_ox(str, &rez, ap);
 	if (str[i] == 'c')
 		len = print_flag_c(rez);
@@ -715,7 +720,7 @@ int check_s_conv(char *str, va_list ap)
 	char *rez;
 
 	rez = NULL;
-	if (ft_prnt_strstr(str, "l"))
+	if (ft_prnt_strstr(str, "l") || str[ft_strlen(str) - 1] == 'S')
 		read_unicode_string(&rez, ap);
 	else 
 	{
@@ -734,6 +739,8 @@ int check_s_conv(char *str, va_list ap)
 	free(rez);
 	return (len);
 }
+
+int check_alpha(char )
 
 int	ft_printf(const char *format, ...)
 {
@@ -758,30 +765,30 @@ int	ft_printf(const char *format, ...)
 			i++;
 			while(sign && format[i] != '\0')
 			{	
-				if (format[i] == 'd' || format[i] == 'D' ||
-					format[i] == 'i' || format[i] == 'u' ||
-					format[i] == 'U')
+				if (format[i] == 'd' || format[i] == 'D' || format[i] == 'i' ||
+					format[i] == 'u' || format[i] == 'U')
 				{	
 					mainstr[j] = format[i];
 					sign = 0;
 					ret = ret + check_digit_conv(mainstr, ap);
 				}
-				if (format[i] == 'o' || format[i] == 'O' ||
-					format[i] == 'x' || format[i] == 'X' ||
-					format[i] == 'p' || format[i] == '%' || 
-					format[i] == 'c')
+				if (format[i] == 'o' || format[i] == 'O' || format[i] == 'x' ||
+					format[i] == 'X' || format[i] == 'p' || format[i] == '%' || 
+					format[i] == 'c' || format[i] == 'C')
 
 				{
 					mainstr[j] = format[i];
 					sign = 0;
 					ret = ret + check_octhex_conv(mainstr, ap);
 				}
-				if (format[i] == 's')
+				if (format[i] == 's' || format[i] == 'S')
 				{
 					mainstr[j] = format[i];
 					sign = 0;
 					ret = ret + check_s_conv(mainstr, ap);
 				}
+				if (check_alpha(format[i]))
+					break ;
 				else	
 					mainstr[j] = format[i];
 				i++;

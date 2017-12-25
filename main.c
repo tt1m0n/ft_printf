@@ -5,12 +5,14 @@
 
  int main()
 {
-	char *l;
-	l = setlocale(LC_ALL, "");
+//	char *l;
+//	l = setlocale(LC_ALL, "");
 
+	int a = 8;
+	int *b = &a;
 
-	printf ("or [%.19ls]\n", L"фака мака дон опана опана опана");
-	ft_printf ("my [%.19ls]\n", L"фака мака дон опана опана опана");
+	 printf("or %0-+hZd\n");
+	 ft_printf("my %Z\n");
 //	printf ("%d\n", 1/2);
 //	system ("leaks printf");
 
