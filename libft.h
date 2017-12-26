@@ -33,7 +33,7 @@ typedef struct		s_list
 void				*ft_memalloc(size_t size);
 void				ft_putchar(char c);
 void				ft_putstr(char const *s);
-void				ft_strclr(char *s);
+void				ft_strclr(char *s, int n);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
 char				*ft_strjoin(char const *s1, char const *s2);

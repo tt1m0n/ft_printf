@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 void	size_spec_hh(char *str, char **rez, va_list ap)
 {
@@ -182,7 +183,7 @@ void	check_size_spec(char *str, char **rez, va_list ap)
 
 	if (use_ss_long(str, rez, ap, p) == 0)
 		use_ss_short(str, rez, ap, p);
-	ft_strclr(p);
+	ft_strclr(p, 6);
 	free(p);
 }	
 
@@ -455,7 +456,7 @@ void	make_sharp_flag(char *str, char **rez)
 	free(tmp);
 }
 
-void	check_flags(char *str, char **rez)
+void	check_minus_plus(char *str, char **rez)
 {
 	int		i;
 	size_t	len;
@@ -470,7 +471,15 @@ void	check_flags(char *str, char **rez)
 		if (str[i++] == '+' && (str[len] == 'd' ||
 			str[len] == 'D' || str[len] == 'i'))
 			make_plus_flag(rez);
+}
+
+void	check_another_flag(char *str, char **rez)
+{
+	int		i;
+	size_t	len;
+
 	i = 0;
+	len = ft_strlen(str) - 1;
 	while (str[i] != '.' && !(ft_isalpha(str[i]))\
 		&& (!(ft_isdigit(str[i])) || str[i] == '0'))
 		if (str[i++] == '0' && str[len] != 'C')
@@ -487,11 +496,18 @@ void	check_flags(char *str, char **rez)
 			make_sharp_flag(str, rez);
 }
 
+
+void	check_flags(char *str, char **rez)
+{
+	check_minus_plus(str, rez);
+	check_another_flag(str, rez);	
+}
+
 void	conv_d_i(char *str, char **rez, va_list ap)
 {
 	check_size_spec(str, rez, ap);
 	if (*rez == NULL && str[ft_strlen(str) - 1] != 'D')
-		*rez = ft_itoa(va_arg(ap, int));	
+		*rez = ft_itoa(va_arg(ap, int));
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'D')
 		*rez = ft_prnt_itoall((long long)va_arg(ap, void*));
 	check_precision(str, rez);
@@ -585,30 +601,35 @@ void	check_c_conv(char *str, char **rez, va_list ap)
 	}	
 }
 
-char	conv_ox(char *str, char **rez, va_list ap)
+void	read_if_nosize(char *str, char **rez, va_list ap)
 {
-	char c;
-
-	c = '\0';
-	check_size_spec(str, rez, ap);
 	if (*rez == NULL && str[ft_strlen(str) - 1] == 'o')
 		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 8, 0);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'x')
-		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 0);	
+		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 0);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'O')
 		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 1);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'X')
 		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 1);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == '%')
 		*rez = add_percent();
-	else if (*rez == NULL && (str[ft_strlen(str) - 1] == 'c' ||
+	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'p')
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
+}
+
+char	conv_ox(char *str, char **rez, va_list ap)
+{
+	char c;
+
+	c = '\0';
+	check_size_spec(str, rez, ap);
+	read_if_nosize(str, rez, ap);
+	if (*rez == NULL && (str[ft_strlen(str) - 1] == 'c' ||
 		str[ft_strlen(str) - 1] == 'C'))
-	{	
+	{
 		check_c_conv(str, rez, ap);
 		c = (*rez)[0];
 	}
-	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'p')
-		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
 	check_precision(str, rez);
 	check_min_width(str, rez);
 	check_flags(str, rez);
@@ -617,61 +638,59 @@ char	conv_ox(char *str, char **rez, va_list ap)
 	return (c);
 }
 
-// check d, D, i, u, U
-int check_digit_conv(char *str, va_list ap)
+int				check_digit_conv(char *str, va_list ap, int *n)
 {
-	int i;
-	int len;
-	char *rez;
+	int		i;
+	int		len;
+	char	*rez;
 
 	rez = NULL;
+	*n = 0;
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i' || str[i] == 'D')
 		conv_d_i(str, &rez, ap);
 	else if (str[i] == 'u' || str[i] == 'U')
 		conv_u(str, &rez, ap);
-
-
-	ft_putstr(rez);
 	len = ft_strlen(rez);
-	ft_strclr(rez);
+	write(1, rez, len);
+	ft_strclr(rez, ft_strlen(rez));
 	free(rez);
 	return (len);
 }
 
-int	print_flag_c (char *rez, char c)
+int				print_flag_c (char *rez, char c)
 {
 	int i;
 
 	i = 0;
 	while (rez[i] != '\0')
-	{	
+	{
 		if ((rez[i] != ' ' && rez[i] != '0') || c != 0)
-		{	
-			ft_putstr(rez);
+		{
+			write(1, rez, ft_strlen(rez));
 			return (0);
 			break ;
-		}	
+		}
 		i++;
 	}
 	if (rez[i] == '\0' || rez[i] == '0')
-	{	
+	{
 		write (1, rez, ft_strlen(rez) + 1);
 		return (1);
 	}
 	return(0);
 }
 
-// check o, O, x, X
-int	check_octhex_conv(char *str, va_list ap)
+int				check_octhex_conv(char *str, va_list ap, int *n)
 {
-	int i;
-	int len;
-	char *rez;
-	char c;
+	int		i;
+	int		len;
+	char	*rez;
+	char 	c;
 
 	rez = NULL;
 	len = 0;
+	*n = 0;
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'o' || str[i] == 'O' || str[i] == 'x' || str[i] == 'p' ||
 		str[i] == 'X' || str[i] == '%' || str[i] == 'c' || str[i] == 'C')
@@ -679,18 +698,18 @@ int	check_octhex_conv(char *str, va_list ap)
 	if (str[i] == 'c' || str[i] == 'C')
 		len = print_flag_c(rez, c);
 	else
-		ft_putstr(rez);
+		write(1, rez, ft_strlen(rez));
 	len = len + ft_strlen(rez);
-	ft_strclr(rez);
+	ft_strclr(rez, ft_strlen(rez));
 	free(rez);
 	return (len);
 }
 
-char *write_string(va_list ap)
+char			*write_string(va_list ap)
 {
-	char *p;
-	char *tmp;
-	int len;
+	char	*p;
+	char	*tmp;
+	int		len;
 
 	p = NULL;
 	tmp = va_arg(ap, char*);
@@ -703,15 +722,15 @@ char *write_string(va_list ap)
 	return (p);
 }
 
-unsigned int *ft_intcpy(unsigned int *p, unsigned int *arr)
+unsigned int	*ft_intcpy(unsigned int *p, unsigned int *arr)
 {
 	int i;
 
 	i = 0;
-	if (arr == 0)	
+	if (arr == 0)
 		return (0);
 	while (arr[i] != 0)
-	{	
+	{
 		p[i] = arr[i];
 		i++;
 	}
@@ -719,28 +738,13 @@ unsigned int *ft_intcpy(unsigned int *p, unsigned int *arr)
 	return (p);
 }
 
-void	read_unicode_string(char **rez, va_list ap)
+void			write_rez_unicode(unsigned int *p, char **rez)
 {
-	unsigned int *p;
-	int i;
-	char *tmp;
-	char *del;
+	int		i;
+	char	*del;
+	char	*tmp;
 
 	i = 0;
-	if (!(p = (unsigned int*)malloc(sizeof(int) * 1000000)))
-		return ;
-	p = ft_intcpy(p, (unsigned int*)va_arg(ap, void*));
-	if (p == 0)
-	{
-		free(p);
-		return ;
-	}	
-	if (p[0] == 0)
-	{
-		if (!(*rez = (char*)malloc(sizeof(char) * 1)))
-			return ;
-		(*rez)[0] = '\0';
-	}
 	while (p[i] != 0)
 	{
 		del = *rez;
@@ -757,6 +761,27 @@ void	read_unicode_string(char **rez, va_list ap)
 			free(del);
 		i++;
 	}
+}
+
+void		read_unicode_string(char **rez, va_list ap)
+{
+	unsigned int	*p;
+
+	if (!(p = (unsigned int*)malloc(sizeof(int) * 1000000)))
+		return ;
+	p = ft_intcpy(p, (unsigned int*)va_arg(ap, void*));
+	if (p == 0)
+	{
+		free(p);
+		return ;
+	}
+	if (p[0] == 0)
+	{
+		if (!(*rez = (char*)malloc(sizeof(char) * 1)))
+			return ;
+		(*rez)[0] = '\0';
+	}
+	write_rez_unicode(p, rez);
 	free(p);
 }
 
@@ -773,12 +798,13 @@ void	writenull_for_s(char **rez)
 	(*rez)[6] = '\0';
 }
 
-int check_s_conv(char *str, va_list ap)
+int check_s_conv(char *str, va_list ap, int *n)
 {
 	int len;
 	char *rez;
 
 	rez = NULL;
+	*n = 0;
 	if (ft_prnt_strstr(str, "l") || str[ft_strlen(str) - 1] == 'S')
 		read_unicode_string(&rez, ap);
 	else 
@@ -788,104 +814,98 @@ int check_s_conv(char *str, va_list ap)
 	}
 	if (rez == NULL)
 	{
-		ft_putstr("(null)");	
+		ft_putstr("(null)");
 		return (6);
 	}
 	check_precision(str, &rez);
 	check_min_width(str, &rez);
 	check_flags(str, &rez);
-	ft_putstr(rez);
 	len = ft_strlen(rez);
-	ft_strclr(rez);
+	write(1, rez, len);
+	ft_strclr(rez, len);
 	free(rez);
 	return (len);
 }
 
-int check_inv_char(char *str, char p)
+int check_inv_char(char *str, char p, int *n)
 {
 	int len;
 	char *rez;
 
+	*n = 0;
 	if (!(rez = (char*)malloc(sizeof(char) * 2)))
 		return (0);
 	rez[0] = p;
 	rez[1] = '\0';
 	check_min_width(str, &rez);
 	check_flags(str, &rez);
-
-	ft_putstr(rez);
 	len = ft_strlen(rez);
-	ft_strclr(rez);
+	write(1, rez, len);
+	ft_strclr(rez, len);
 	free(rez);
 	return (len);
 }
 
-int	ft_printf(const char *format, ...)
+int	check_conversion(const char *s, int i, va_list ap, int *ret)
 {
-	int i;
 	int j;
 	int sign;
 	char *mainstr;
-	va_list ap;
+
+	j = 0;
+	sign = 1;
+	if (!(mainstr = (char*)malloc(sizeof(char) * 50)))
+		return (0);
+	ft_strclr(mainstr, 50);
+	while(sign && s[i] != '\0')
+	{	
+		mainstr[j++] = s[i];
+		if (s[i] == 'd' || s[i] == 'D' || s[i] == 'i' || s[i] == 'u' || s[i] == 'U')
+			*ret = *ret + check_digit_conv(mainstr, ap, &sign);
+		if (s[i] == 'o' || s[i] == 'O' || s[i] == 'x' || s[i] == 'X' ||
+			s[i] == 'p' || s[i] == '%' || s[i] == 'c' || s[i] == 'C')
+			*ret = *ret + check_octhex_conv(mainstr, ap, &sign);
+		if (s[i] == 's' || s[i] == 'S')
+			*ret = *ret + check_s_conv(mainstr, ap, &sign);
+		if (check_char(s[i]))
+			*ret = *ret + check_inv_char(mainstr, s[i], &sign);
+		i++;
+	}
+	free(mainstr);
+	return (i);
+}
+
+int		check_format(const char *s, va_list ap)
+{
+	int i;
 	int ret;
 
 	i = 0;
-	j = 0;
 	ret = 0;
-	if (!(mainstr = ft_memalloc(50)))
-		return (0);
-	va_start(ap, format);
-	while (format[i] != '\0')
+	while (s[i] != '\0')
 	{
-		sign = 1;
-		if (format[i] == '%')
+		if (s[i] == '%')
 		{
 			i++;
-			while(sign && format[i] != '\0')
-			{	
-				if (format[i] == 'd' || format[i] == 'D' || format[i] == 'i' ||
-					format[i] == 'u' || format[i] == 'U')
-				{	
-					mainstr[j] = format[i];
-					sign = 0;
-					ret = ret + check_digit_conv(mainstr, ap);
-				}
-				if (format[i] == 'o' || format[i] == 'O' || format[i] == 'x' ||
-					format[i] == 'X' || format[i] == 'p' || format[i] == '%' || 
-					format[i] == 'c' || format[i] == 'C')
-
-				{
-					mainstr[j] = format[i];
-					sign = 0;
-					ret = ret + check_octhex_conv(mainstr, ap);
-				}
-				if (format[i] == 's' || format[i] == 'S')
-				{
-					mainstr[j] = format[i];
-					sign = 0;
-					ret = ret + check_s_conv(mainstr, ap);
-				}
-				if (check_char(format[i]))
-				{
-					mainstr[j] = format[i];
-					ret = ret + check_inv_char(mainstr, format[i]);
-					sign = 0;
-				}	
-				mainstr[j] = format[i];
-				i++;
-				j++;	
-			}
-		ft_strclr(mainstr);
+			i = check_conversion(s, i, ap, &ret);
 		}
-		if(format[i] != '\0' && format[i] != '%')
+		if(s[i] != '\0' && s[i] != '%')
 		{	
-			ft_putchar(format[i]);
-			i++;
+			write(1, &s[i++], 1);
 			ret++;
 		}
-		j = 0;	
 	}
+	return (ret);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	int ret;
+	va_list ap;
+	
+	ret = 0;
+	va_start(ap, format);
+	ret = check_format(format, ap);
 	va_end(ap);	
-	free(mainstr);
 	return (ret);
 }
