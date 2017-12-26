@@ -42,7 +42,7 @@ static void			write_rez_unicode(unsigned int *p, char **rez)
 		if (*rez == NULL)
 		{
 			*rez = ft_memalloc(ft_strlen(tmp) + 1);
-			*rez = ft_strcpy(*rez, tmp);
+			*rez = ft_memcpy(*rez, tmp, ft_strlen(tmp) + 1);
 		}
 		else
 			*rez = ft_strjoin(*rez, tmp);
