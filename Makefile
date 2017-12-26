@@ -25,7 +25,10 @@ SRC = ft_printf.c ft_memcpy.c ft_strlen.c ft_strcpy.c ft_atoi.c ft_isalpha.c\
 	  ft_prnt_memmaloc.c ft_prnt_sharp_p.c size_spec_hh.c size_spec_ll.c\
 	  size_spec_h.c size_spec_l.c size_spec_j.c size_spec_z.c use_ss_long.c\
 	  use_ss_short.c check_size_spec.c check_char.c check_precision.c\
-	  count_precision.c check_min_width.c
+	  count_precision.c check_min_width.c make_minus_flag.c make_plus_flag.c\
+	  make_zero_flag.c make_space_flag.c make_sharp_flag.c check_flags.c\
+	  check_digit_conv.c check_c_conv.c print_unicode.c check_inv_char.c\
+	  check_octhex_conv.c read_unicode_string.c check_s_conv.c
 
 OBJ	= $(SRC:.c=.o)
 

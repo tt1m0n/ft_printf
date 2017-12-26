@@ -70,4 +70,18 @@ int		check_char(char c);
 void	check_precision(char *str, char **rez);
 int  	count_precision(char *str, char *rez);
 void	check_min_width(char *str, char **rez);
+void	make_minus_flag(char **rez);
+void	make_plus_flag(char **rez);
+void	make_zero_flag(char *str, char **rez);
+void	make_space_flag(char *str, char **rez);
+void	make_sharp_flag(char *str, char **rez);
+void	check_flags(char *str, char **rez);
+int		check_digit_conv(char *str, va_list ap, int *n);
+void	check_c_conv(char *str, char **rez, va_list ap);
+void	print_unicode(unsigned int n, char **rez);
+int 	check_inv_char(char *str, char p, int *n);
+int		check_s_conv(char *str, va_list ap, int *n);
+int		check_octhex_conv(char *str, va_list ap, int *n);
+void		read_unicode_string(char **rez, va_list ap);
+
 #endif
