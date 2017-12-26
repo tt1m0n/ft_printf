@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 19:08:59 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 19:09:01 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:35:58 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	make_width(char **rez, int lenwidth)
 	free(tmp);
 }
 
-static int 	count_min_width(char *str)
+static int	count_min_width(char *str)
 {
 	int		i;
 	int		j;
@@ -38,7 +38,7 @@ static int 	count_min_width(char *str)
 			while (ft_isdigit(str[i]))
 				width[j++] = str[i++];
 			width[j] = '\0';
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -46,14 +46,14 @@ static int 	count_min_width(char *str)
 	return (wd);
 }
 
-void	check_min_width(char *str, char **rez)
+void		check_min_width(char *str, char **rez)
 {
 	int		wd;
 	int		i;
-	size_t	len;
+	size_t	l;
 
 	i = 0;
-	len = ft_strlen(str) - 1;
+	l = ft_strlen(str) - 1;
 	wd = count_min_width(str);
 	if (*rez == NULL)
 	{
@@ -65,9 +65,9 @@ void	check_min_width(char *str, char **rez)
 	if ((size_t)wd > ft_strlen(*rez))
 	{
 		if ((*rez)[0] == '\0' && str[ft_strlen(str) - 1] != 's' &&
-			str[len] != 'x' && str[len] != 'X' && str[len] != 'o' && str[len] != 'O' &&
-			str[len] != 'd' && str[len] != 'D' && str[len] != 'i' && str[len] != 'u' &&
-			str[len] != 'U' && str[len] != 'S')
+			str[l] != 'x' && str[l] != 'X' && str[l] != 'o' && str[l] != 'O' &&
+			str[l] != 'd' && str[l] != 'D' && str[l] != 'i' && str[l] != 'u' &&
+			str[l] != 'U' && str[l] != 'S')
 			make_width(rez, wd - 1 - ft_strlen(*rez));
 		else
 			make_width(rez, wd - ft_strlen(*rez));

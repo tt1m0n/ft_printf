@@ -6,13 +6,13 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 20:04:06 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 20:04:07 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:39:11 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char			*write_string(va_list ap)
+static char		*write_string(va_list ap)
 {
 	char	*p;
 	char	*tmp;
@@ -29,7 +29,7 @@ static char			*write_string(va_list ap)
 	return (p);
 }
 
-static void	writenull_for_s(char **rez)
+static void		writenull_for_s(char **rez)
 {
 	if (!(*rez = (char*)malloc(sizeof(char) * 7)))
 		return ;
@@ -42,16 +42,16 @@ static void	writenull_for_s(char **rez)
 	(*rez)[6] = '\0';
 }
 
-int check_s_conv(char *str, va_list ap, int *n)
+int				check_s_conv(char *str, va_list ap, int *n)
 {
-	int len;
-	char *rez;
+	int		len;
+	char	*rez;
 
 	rez = NULL;
 	*n = 0;
 	if (ft_prnt_strstr(str, "l") || str[ft_strlen(str) - 1] == 'S')
 		read_unicode_string(&rez, ap);
-	else 
+	else
 	{
 		if (!(rez = write_string(ap)))
 			writenull_for_s(&rez);

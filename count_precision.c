@@ -6,17 +6,17 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 19:04:40 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 19:04:42 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:46:13 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int  	count_precision(char *str, char *rez)
+int	count_precision(char *str, char *rez)
 {
-	int i;
-	int j;
-	char precision[20];
+	int		i;
+	int		j;
+	char	precision[20];
 
 	i = -1;
 	j = 0;

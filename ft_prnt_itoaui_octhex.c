@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 09:54:32 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/20 09:54:35 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:59:36 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ static char		ft_conv(unsigned int n, int base, int x)
 			return (rez + '0');
 		else if (rez > 9 && rez <= 15)
 		{
-			if (x == 0)	
+			if (x == 0)
 				return ('a' + rez - 10);
 			else if (x == 1)
 				return ('A' + rez - 10);
-		}	
+		}
 	}
 	return ('0');
 }
@@ -84,8 +84,8 @@ static	void	ft_if(char *p, unsigned int n, int base, int x)
 
 char			*ft_prnt_itoaui_octhex(unsigned int n, int base, int x)
 {
-	char *p;
-	int i;
+	char	*p;
+	int		i;
 
 	i = 0;
 	p = (char*)malloc(sizeof(char) * (ft_intlen(n, base) + 1));

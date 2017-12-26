@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 18:58:49 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 18:58:52 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:42:46 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	check_size_spec(char *str, char **rez, va_list ap)
 		p[4] = '1';
 	else if (ft_prnt_strstr(str, "h"))
 		p[5] = '1';
-
 	if (use_ss_long(str, rez, ap, p) == 0)
 		use_ss_short(str, rez, ap, p);
 	ft_strclr(p, 6);

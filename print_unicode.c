@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 20:00:02 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 20:00:03 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 23:11:13 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	print_2_byte(int mask1, int n, char **rez)
 {
 	if (!(*rez = (char*)malloc(sizeof(char) * 3)))
 		return ;
-	(*rez)[0] = mask1>>8|n>>6;
-	(*rez)[1] = (n&63)|128;
+	(*rez)[0] = mask1 >> 8 | n >> 6;
+	(*rez)[1] = (n & 63) | 128;
 	(*rez)[2] = '\0';
 }
 
@@ -25,9 +25,9 @@ void	print_3_byte(int mask2, int n, char **rez)
 {
 	if (!(*rez = (char*)malloc(sizeof(char) * 4)))
 		return ;
-	(*rez)[0] = mask2>>16|n>>12;
-	(*rez)[1] = ((n>>6)&63)|128;
-	(*rez)[2] = (n&63)|128;
+	(*rez)[0] = mask2 >> 16 | n >> 12;
+	(*rez)[1] = ((n >> 6) & 63) | 128;
+	(*rez)[2] = (n & 63) | 128;
 	(*rez)[3] = '\0';
 }
 
@@ -35,10 +35,10 @@ void	print_4_byte(int mask3, int n, char **rez)
 {
 	if (!(*rez = (char*)malloc(sizeof(char) * 4)))
 		return ;
-	(*rez)[0] = mask3>>24|n>>18;
-	(*rez)[1] = ((n>>12)&63)|128;
-	(*rez)[2] = ((n>>6)&63)|128;
-	(*rez)[3] = (n&63)|128;
+	(*rez)[0] = mask3 >> 24 | n >> 18;
+	(*rez)[1] = ((n >> 12) & 63) | 128;
+	(*rez)[2] = ((n >> 6) & 63) | 128;
+	(*rez)[3] = (n & 63) | 128;
 	(*rez)[4] = '\0';
 }
 

@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 19:56:14 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 19:56:16 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:34:04 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	conv_u(char *str, char **rez, va_list ap)
 	check_min_width(str, rez);
 	check_flags(str, rez);
 }
-int				check_digit_conv(char *str, va_list ap, int *n)
 
+int			check_digit_conv(char *str, va_list ap, int *n)
 {
 	int		i;
 	int		len;

@@ -6,13 +6,13 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 20:16:01 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 20:16:03 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:50:48 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*add_percent()
+static char	*add_percent(void)
 {
 	char *p;
 
@@ -30,13 +30,15 @@ static void	read_if_nosize(char *str, char **rez, va_list ap)
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'x')
 		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 0);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'O')
-		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 1);
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)\
+									va_arg(ap, void*), 8, 1);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'X')
 		*rez = ft_prnt_itoaui_octhex((unsigned int)va_arg(ap, void*), 16, 1);
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == '%')
 		*rez = add_percent();
 	else if (*rez == NULL && str[ft_strlen(str) - 1] == 'p')
-		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)\
+									va_arg(ap, void*), 16, 0);
 }
 
 static char	conv_ox(char *str, char **rez, va_list ap)
@@ -60,7 +62,7 @@ static char	conv_ox(char *str, char **rez, va_list ap)
 	return (c);
 }
 
-static int		print_flag_c (char *rez, char c)
+static int	print_flag_c(char *rez, char c)
 {
 	int i;
 
@@ -77,18 +79,18 @@ static int		print_flag_c (char *rez, char c)
 	}
 	if (rez[i] == '\0' || rez[i] == '0')
 	{
-		write (1, rez, ft_strlen(rez) + 1);
+		write(1, rez, ft_strlen(rez) + 1);
 		return (1);
 	}
-	return(0);
+	return (0);
 }
 
-int				check_octhex_conv(char *str, va_list ap, int *n)
+int			check_octhex_conv(char *str, va_list ap, int *n)
 {
 	int		i;
 	int		len;
 	char	*rez;
-	char 	c;
+	char	c;
 
 	rez = NULL;
 	len = 0;

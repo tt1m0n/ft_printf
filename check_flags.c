@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 19:51:20 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 19:51:22 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:32:54 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	check_another_flag(char *str, char **rez)
 			make_sharp_flag(str, rez);
 }
 
-void	check_flags(char *str, char **rez)
+void		check_flags(char *str, char **rez)
 {
 	check_minus_plus(str, rez);
-	check_another_flag(str, rez);	
+	check_another_flag(str, rez);
 }

@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/13 18:37:54 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/13 18:38:00 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 23:05:25 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	check_conversion(const char *s, int i, va_list ap, int *ret)
 {
-	int j;
-	int sign;
-	char *mainstr;
+	int		j;
+	int		sign;
+	char	*mainstr;
 
 	j = 0;
 	sign = 1;
 	if (!(mainstr = (char*)malloc(sizeof(char) * 50)))
 		return (0);
 	ft_strclr(mainstr, 50);
-	while(sign && s[i] != '\0')
-	{	
+	while (sign && s[i] != '\0')
+	{
 		mainstr[j++] = s[i];
 		if (s[i] == 'd' || s[i] == 'D' || s[i] == 'i' || s[i] == 'u' || s[i] == 'U')
 			*ret = *ret + check_digit_conv(mainstr, ap, &sign);
@@ -41,7 +41,7 @@ int	check_conversion(const char *s, int i, va_list ap, int *ret)
 	return (i);
 }
 
-int		check_format(const char *s, va_list ap)
+int	check_format(const char *s, va_list ap)
 {
 	int i;
 	int ret;
@@ -55,8 +55,8 @@ int		check_format(const char *s, va_list ap)
 			i++;
 			i = check_conversion(s, i, ap, &ret);
 		}
-		if(s[i] != '\0' && s[i] != '%')
-		{	
+		if (s[i] != '\0' && s[i] != '%')
+		{
 			write(1, &s[i++], 1);
 			ret++;
 		}
@@ -66,12 +66,12 @@ int		check_format(const char *s, va_list ap)
 
 int	ft_printf(const char *format, ...)
 {
-	int ret;
-	va_list ap;
-	
+	int		ret;
+	va_list	ap;
+
 	ret = 0;
 	va_start(ap, format);
 	ret = check_format(format, ap);
-	va_end(ap);	
+	va_end(ap);
 	return (ret);
 }

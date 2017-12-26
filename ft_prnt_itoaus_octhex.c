@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/20 09:57:51 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/20 09:57:56 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 23:00:53 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ static char		ft_conv(unsigned short n, int base, int x)
 			return (rez + '0');
 		else if (rez > 9 && rez <= 15)
 		{
-			if (x == 0)	
+			if (x == 0)
 				return ('a' + rez - 10);
 			else if (x == 1)
 				return ('A' + rez - 10);
-		}	
+		}
 	}
 	return ('0');
 }

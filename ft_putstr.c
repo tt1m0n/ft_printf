@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/02 12:27:52 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/11/03 14:52:24 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 23:01:32 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	ft_putstr(char const *s)
 	i = 0;
 	if (s == NULL)
 		return ;
-	write (1, s, ft_strlen(s));
-}	
+	write(1, s, ft_strlen(s));
+}

@@ -6,16 +6,16 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 20:02:21 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 20:02:23 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:31:55 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int check_inv_char(char *str, char p, int *n)
+int	check_inv_char(char *str, char p, int *n)
 {
-	int len;
-	char *rez;
+	int		len;
+	char	*rez;
 
 	*n = 0;
 	if (!(rez = (char*)malloc(sizeof(char) * 2)))

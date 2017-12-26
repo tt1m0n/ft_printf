@@ -6,7 +6,7 @@
 /*   By: omakovsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/26 19:02:29 by omakovsk          #+#    #+#             */
-/*   Updated: 2017/12/26 19:02:31 by omakovsk         ###   ########.fr       */
+/*   Updated: 2017/12/26 22:36:32 by omakovsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	make_precision_str(char **rez, int len)
 	free(tmp);
 }
 
-void	check_precision(char *str, char **rez)
+void		check_precision(char *str, char **rez)
 {
 	int		prsn;
 	size_t	lenrez;

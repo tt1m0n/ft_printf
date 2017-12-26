@@ -53,7 +53,7 @@ static void			write_rez_unicode(unsigned int *p, char **rez)
 	}
 }
 
-void		read_unicode_string(char **rez, va_list ap)
+void				read_unicode_string(char **rez, va_list ap)
 {
 	unsigned int	*p;
 
