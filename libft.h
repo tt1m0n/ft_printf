@@ -57,5 +57,17 @@ char				*ft_prnt_prs_str(int len, char const *str);
 char				*ft_prnt_addsharp(char const *s, char c);
 void				*ft_prnt_memalloc(size_t size);
 char				*ft_prnt_sharp_p(const char *str);
-
+void				size_spec_hh(char *str, char **rez, va_list ap);
+void	size_spec_ll(char *str, char **rez, va_list ap);
+void	size_spec_h(char *str, char **rez, va_list ap);
+void	size_spec_l(char *str, char **rez, va_list ap);
+void	size_spec_j(char *str, char **rez, va_list ap);
+void	size_spec_z(char *str, char **rez, va_list ap);
+int		use_ss_long(char *str, char **rez, va_list ap, char *p);
+void	use_ss_short(char *str, char **rez, va_list ap, char *p);
+void	check_size_spec(char *str, char **rez, va_list ap);
+int		check_char(char c);
+void	check_precision(char *str, char **rez);
+int  	count_precision(char *str, char *rez);
+void	check_min_width(char *str, char **rez);
 #endif

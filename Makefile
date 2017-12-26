@@ -22,7 +22,10 @@ SRC = ft_printf.c ft_memcpy.c ft_strlen.c ft_strcpy.c ft_atoi.c ft_isalpha.c\
 	  ft_prnt_space_flag.c ft_printf.c ft_prnt_itoaui.c ft_prnt_itoaui_octhex.c\
 	  ft_prnt_itoaus_octhex.c ft_prnt_itoaull_octhex.c ft_prnt_itoauimax_octhex.c\
 	  ft_prnt_smsharp.c ft_prnt_bgsharp.c ft_prnt_prs_str.c ft_prnt_addsharp.c\
-	  ft_prnt_memmaloc.c ft_prnt_sharp_p.c
+	  ft_prnt_memmaloc.c ft_prnt_sharp_p.c size_spec_hh.c size_spec_ll.c\
+	  size_spec_h.c size_spec_l.c size_spec_j.c size_spec_z.c use_ss_long.c\
+	  use_ss_short.c check_size_spec.c check_char.c check_precision.c\
+	  count_precision.c check_min_width.c
 
 OBJ	= $(SRC:.c=.o)
 
