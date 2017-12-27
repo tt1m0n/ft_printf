@@ -91,7 +91,6 @@ char			*ft_prnt_itoaui_octhex(unsigned int n, int base, int x)
 	p = (char*)malloc(sizeof(char) * (ft_intlen(n, base) + 1));
 	if (p == NULL)
 		return (NULL);
-	ft_putstr(p);
 	ft_if(p, n, base, x);
 	ft_rev(p);
 	return (p);
