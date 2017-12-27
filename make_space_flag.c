@@ -28,14 +28,9 @@ void	make_space_flag(char *str, char **rez)
 	while ((*rez)[i] != '\0')
 		if ((*rez)[i++] == '-')
 			return ;
-	if (ft_isdigit((*rez)[0]) && (*rez)[len] != ' ' && (*rez)[0] != '0')
-	{
+	if (ft_isdigit((*rez)[0]) && (*rez)[len] != ' ')
 		*rez = ft_strjoin(" ", *rez);
-		free(tmp);
-	}
 	if (ft_isdigit((*rez)[0]) && ((*rez)[len] == ' ' || (*rez)[0] == '0'))
-	{
 		*rez = ft_prnt_space_flag(*rez);
-		free(tmp);
-	}
+	free(tmp);
 }
