@@ -84,10 +84,13 @@ char			*ft_prnt_strjoin_smb(char const *s, char c)
 		p = (char*)malloc(ft_strlen(s) + 2);
 		if (p == NULL)
 			return (NULL);
-		p[i++] = c;
-		while (*s != '\0' && (c != '0' || s[0] != '0'))
-			p[i++] = *(s++);
-		p[i] = '\0';
+		p[0] = c;
+		while (s[i] != '\0' && (s[0] != '0' || c != '0' ))
+		{	
+			p[i + 1] = s[i];
+			i++;
+		}	
+		p[i + 1] = '\0';
 	}
 	else if ((s[0] == '0' && s[1] != '\0' && s[1] != ' ') ||
 		(s[ft_strlen(s) - 1] == '0' && s[ft_strlen(s) - 2] == ' '))
