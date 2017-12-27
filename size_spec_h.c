@@ -15,6 +15,7 @@
 void	size_spec_h(char *str, char **rez, va_list ap)
 {
 	int i;
+
 	i = ft_strlen(str) - 1;
 	if (str[i] == 'd' || str[i] == 'i')
 		*rez = ft_prnt_itoas((short)va_arg(ap, void*));

@@ -22,7 +22,7 @@ void	make_space_flag(char *str, char **rez)
 	tmp = *rez;
 	len = ft_strlen(*rez) - 1;
 	while (str[i] != '\0')
-		if ((str[i++] == '+') || (*rez)[0] == ' ') 
+		if ((str[i++] == '+') || (*rez)[0] == ' ')
 			return ;
 	i = 0;
 	while ((*rez)[i] != '\0')

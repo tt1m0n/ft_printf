@@ -28,7 +28,7 @@ SRC = ft_printf.c ft_memcpy.c ft_strlen.c ft_strcpy.c ft_atoi.c ft_isalpha.c\
 	  count_precision.c check_min_width.c make_minus_flag.c make_plus_flag.c\
 	  make_zero_flag.c make_space_flag.c make_sharp_flag.c check_flags.c\
 	  check_digit_conv.c check_c_conv.c print_unicode.c check_inv_char.c\
-	  check_octhex_conv.c read_unicode_string.c check_s_conv.c
+	  check_octhex_conv.c read_unicode_string.c check_s_conv.c check_conversion.c\
 
 OBJ	= $(SRC:.c=.o)
 

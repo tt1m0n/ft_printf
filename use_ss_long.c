@@ -29,5 +29,5 @@ int		use_ss_long(char *str, char **rez, va_list ap, char *p)
 		size_spec_ll(str, rez, ap);
 		return (1);
 	}
-	return (0);	
+	return (0);
 }

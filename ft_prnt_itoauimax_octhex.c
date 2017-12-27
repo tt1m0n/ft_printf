@@ -57,12 +57,12 @@ static char		ft_conv(uintmax_t n, unsigned int base, int x)
 		if (rez <= 9)
 			return (rez + '0');
 		else if (rez > 9 && rez <= 15)
-		{	
+		{
 			if (x == 0)
 				return ('a' + rez - 10);
 			else if (x == 1)
 				return ('A' + rez - 10);
-		}	
+		}
 	}
 	return ('0');
 }

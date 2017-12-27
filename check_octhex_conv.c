@@ -56,7 +56,7 @@ static char	conv_ox(char *str, char **rez, va_list ap)
 		{
 			c = 1;
 			return (c);
-		}	
+		}
 		c = (*rez)[0];
 	}
 	check_precision(str, rez);
@@ -111,7 +111,7 @@ int			check_octhex_conv(char *str, va_list ap, int *n)
 	else
 		write(1, rez, ft_strlen(rez));
 	if (rez != NULL)
-	{	
+	{
 		len = len + ft_strlen(rez);
 		ft_strclr(rez, ft_strlen(rez));
 		free(rez);

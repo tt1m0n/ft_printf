@@ -22,11 +22,15 @@ void	size_spec_l(char *str, char **rez, va_list ap)
 	else if (str[i] == 'u')
 		*rez = ft_prnt_itoaull((unsigned long long)va_arg(ap, void*));
 	else if (str[i] == 'o')
-		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 0);
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)\
+										va_arg(ap, void*), 8, 0);
 	else if (str[i] == 'x')
-		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 0);
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)\
+										va_arg(ap, void*), 16, 0);
 	else if (str[i] == 'O')
-		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 8, 1);
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)\
+										va_arg(ap, void*), 8, 1);
 	else if (str[i] == 'X')
-		*rez = ft_prnt_itoaull_octhex((unsigned long long)va_arg(ap, void*), 16, 1);
+		*rez = ft_prnt_itoaull_octhex((unsigned long long)\
+										va_arg(ap, void*), 16, 1);
 }

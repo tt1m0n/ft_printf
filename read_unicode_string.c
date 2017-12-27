@@ -40,7 +40,7 @@ static void			write_rez_unicode(char *str, unsigned int *p, char **rez)
 		del = *rez;
 		print_unicode(str, p[i], &tmp);
 		if (rez == NULL && i != 0)
-			break;
+			break ;
 		if (*rez == NULL)
 		{
 			*rez = ft_memalloc(ft_strlen(tmp) + 1);

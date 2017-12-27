@@ -12,19 +12,19 @@
 
 #include "libft.h"
 
-static char *make_sharpwith_zero(char *str, char *rez)
+static char	*make_sharpwith_zero(char *str, char *rez)
 {
 	size_t	len;
 
 	len = ft_strlen(str) - 1;
 	if (str[len] == 'o' || str[len] == 'O')
-		return(ft_prnt_strjoin_smb(rez, '0'));
+		return (ft_prnt_strjoin_smb(rez, '0'));
 	else if (str[len] == 'x' || str[len] == 'X' || str[len] == 'p')
-		return(ft_prnt_addsharp(rez, 'x'));
+		return (ft_prnt_addsharp(rez, 'x'));
 	return (NULL);
 }
 
-void	make_sharp_flag(char *str, char **rez)
+void		make_sharp_flag(char *str, char **rez)
 {
 	char	*tmp;
 	size_t	len;
@@ -39,7 +39,7 @@ void	make_sharp_flag(char *str, char **rez)
 		if (str[ft_strlen(str) - 1] == 'x')
 			*rez = ft_prnt_smsharp(*rez);
 		else if (str[len] == 'p')
-			*rez = ft_prnt_sharp_p(*rez);	
+			*rez = ft_prnt_sharp_p(*rez);
 		else if (str[len] == 'X')
 			*rez = ft_prnt_bgsharp(*rez);
 		else if (str[len] == 'o')

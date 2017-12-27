@@ -16,7 +16,7 @@ void	make_minus_flag(char **rez)
 {
 	char *tmp;
 
-	if((*rez)[0] == ' ')
+	if ((*rez)[0] == ' ')
 	{
 		tmp = *rez;
 		*rez = ft_prnt_replace_spc(*rez);

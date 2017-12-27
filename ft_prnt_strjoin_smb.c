@@ -47,17 +47,17 @@ static char		*ft_add_zero(char *p, char const *s, char c, int i)
 	if (!(p = (char*)malloc(sizeof(char) * ft_strlen(s) + 1)))
 		return (NULL);
 	if (s[0] == '0' && s[ft_strlen(s) - 1] == ' ')
-	{	
+	{
 		p[0] = c;
 		while (s[i + 1] != '\0')
-		{	
+		{
 			p[i + 1] = s[i];
 			i++;
-		}	
+		}
 		p[i + 1] = '\0';
 	}
 	else
-	{	
+	{
 		while (s[i] != '\0')
 		{
 			if (s[i] == ' ' && s[i + 1] == '0')
@@ -65,8 +65,8 @@ static char		*ft_add_zero(char *p, char const *s, char c, int i)
 					p[i++] = c;
 			p[i] = s[i];
 			i++;
-		}	
-		p[i] = '\0';	
+		}
+		p[i] = '\0';
 	}
 	return (p);
 }

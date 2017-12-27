@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-void	make_zero_flag(char *str, char **rez)
+void	make_zero_flag(char *s, char **rez)
 {
 	int		i;
 	char	*tmp;
@@ -20,11 +20,11 @@ void	make_zero_flag(char *str, char **rez)
 
 	i = 0;
 	tmp = *rez;
-	len = ft_strlen(str) - 1;
-	while (str[i] != '\0')
+	len = ft_strlen(s) - 1;
+	while (s[i] != '\0')
 	{
-		if ((str[i] == '.' || str[i] == '-') && str[len] != 'c' && str[len] != 's' &&
-			str[len] != '%' && (check_char(str[len]) == 0) && str[len] != 'S')
+		if ((s[i] == '.' || s[i] == '-') && s[len] != 'c' && s[len] != 's' &&
+			s[len] != '%' && (check_char(s[len]) == 0) && s[len] != 'S')
 			return ;
 		i++;
 	}
