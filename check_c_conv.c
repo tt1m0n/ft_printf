@@ -15,7 +15,7 @@
 void	check_c_conv(char *str, char **rez, va_list ap)
 {
 	if (ft_prnt_strstr(str, "l") || str[ft_strlen(str) - 1] == 'C')
-		print_unicode((unsigned int)va_arg(ap, void*), rez);
+		print_unicode(str, (unsigned int)va_arg(ap, void*), rez);
 	else
 	{
 		*rez = (char*)malloc(sizeof(char) * 2);

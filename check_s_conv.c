@@ -50,7 +50,7 @@ int				check_s_conv(char *str, va_list ap, int *n)
 	rez = NULL;
 	*n = 0;
 	if (ft_prnt_strstr(str, "l") || str[ft_strlen(str) - 1] == 'S')
-		read_unicode_string(&rez, ap);
+		read_unicode_string(str, &rez, ap);
 	else
 	{
 		if (!(rez = write_string(ap)))

@@ -78,10 +78,10 @@ void	make_sharp_flag(char *str, char **rez);
 void	check_flags(char *str, char **rez);
 int		check_digit_conv(char *str, va_list ap, int *n);
 void	check_c_conv(char *str, char **rez, va_list ap);
-void	print_unicode(unsigned int n, char **rez);
+void	print_unicode(char *str, unsigned int n, char **rez);
 int 	check_inv_char(char *str, char p, int *n);
 int		check_s_conv(char *str, va_list ap, int *n);
 int		check_octhex_conv(char *str, va_list ap, int *n);
-void		read_unicode_string(char **rez, va_list ap);
+void		read_unicode_string(char *str, char **rez, va_list ap);
 
 #endif

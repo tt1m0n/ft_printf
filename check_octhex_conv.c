@@ -52,6 +52,11 @@ static char	conv_ox(char *str, char **rez, va_list ap)
 		str[ft_strlen(str) - 1] == 'C'))
 	{
 		check_c_conv(str, rez, ap);
+		if (*rez == NULL)
+		{
+			c = 1;
+			return (c);
+		}	
 		c = (*rez)[0];
 	}
 	check_precision(str, rez);
@@ -67,6 +72,8 @@ static int	print_flag_c(char *rez, char c)
 	int i;
 
 	i = 0;
+	if (c == 1)
+		return (-1000000);
 	while (rez[i] != '\0')
 	{
 		if ((rez[i] != ' ' && rez[i] != '0') || c != 0)
@@ -103,8 +110,11 @@ int			check_octhex_conv(char *str, va_list ap, int *n)
 		len = print_flag_c(rez, c);
 	else
 		write(1, rez, ft_strlen(rez));
-	len = len + ft_strlen(rez);
-	ft_strclr(rez, ft_strlen(rez));
-	free(rez);
+	if (rez != NULL)
+	{	
+		len = len + ft_strlen(rez);
+		ft_strclr(rez, ft_strlen(rez));
+		free(rez);
+	}
 	return (len);
 }

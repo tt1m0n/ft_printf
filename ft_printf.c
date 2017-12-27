@@ -54,6 +54,8 @@ int	check_format(const char *s, va_list ap)
 		{
 			i++;
 			i = check_conversion(s, i, ap, &ret);
+			if (ret < 0)
+				return (-1);
 		}
 		if (s[i] != '\0' && s[i] != '%')
 		{
@@ -73,5 +75,8 @@ int	ft_printf(const char *format, ...)
 	va_start(ap, format);
 	ret = check_format(format, ap);
 	va_end(ap);
-	return (ret);
+	if (ret == -1)
+		return (-1);
+	else
+		return (ret);
 }

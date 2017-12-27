@@ -28,7 +28,7 @@ static unsigned int	*ft_intcpy(unsigned int *p, unsigned int *arr)
 	return (p);
 }
 
-static void			write_rez_unicode(unsigned int *p, char **rez)
+static void			write_rez_unicode(char *str, unsigned int *p, char **rez)
 {
 	int		i;
 	char	*del;
@@ -38,7 +38,9 @@ static void			write_rez_unicode(unsigned int *p, char **rez)
 	while (p[i] != 0)
 	{
 		del = *rez;
-		print_unicode(p[i], &tmp);
+		print_unicode(str, p[i], &tmp);
+		if (rez == NULL && i != 0)
+			break;
 		if (*rez == NULL)
 		{
 			*rez = ft_memalloc(ft_strlen(tmp) + 1);
@@ -53,7 +55,7 @@ static void			write_rez_unicode(unsigned int *p, char **rez)
 	}
 }
 
-void				read_unicode_string(char **rez, va_list ap)
+void				read_unicode_string(char *str, char **rez, va_list ap)
 {
 	unsigned int	*p;
 
@@ -71,6 +73,6 @@ void				read_unicode_string(char **rez, va_list ap)
 			return ;
 		(*rez)[0] = '\0';
 	}
-	write_rez_unicode(p, rez);
+	write_rez_unicode(str, p, rez);
 	free(p);
 }
