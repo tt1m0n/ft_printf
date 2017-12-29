@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static char		*ft_add_sharp_x(char *p, char const *s, char c)
 {

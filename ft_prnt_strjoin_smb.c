@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static char		*ft_prnt_add(char *p, char const *s, char c)
 {
@@ -85,11 +84,11 @@ char			*ft_prnt_strjoin_smb(char const *s, char c)
 		if (p == NULL)
 			return (NULL);
 		p[0] = c;
-		while (s[i] != '\0' && (s[0] != '0' || c != '0' ))
-		{	
+		while (s[i] != '\0' && (s[0] != '0' || c != '0'))
+		{
 			p[i + 1] = s[i];
 			i++;
-		}	
+		}
 		p[i + 1] = '\0';
 	}
 	else if ((s[0] == '0' && s[1] != '\0' && s[1] != ' ') ||
